@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="VerticalSliceArchitecture.Domain/VerticalSliceArchitecture.Domain.csproj" Id="358e56e0-377b-4557-a6a0-12c803c65fa4" />
+  <Project Path="VerticalSliceArchitecture.Infrastructure/VerticalSliceArchitecture.Infrastructure.csproj" Id="632c4911-bb85-41ff-8725-218d2c02ff8f" />
+  <Project Path="VerticalSliceArchitecture.API/VerticalSliceArchitecture.API.csproj" />
+</Solution>
