@@ -23,11 +23,13 @@ public static class Endpoints
         return services;
     }
 
-    public static IApplicationBuilder MapEndpoints(this WebApplication app)
+    public static WebApplication MapEndpoints(this WebApplication app)
     {
+        var group = app.MapGroup(Constants.RoutePrefix);
+
         foreach (IEndpoint endpoint in app.Services.GetRequiredService<IEnumerable<IEndpoint>>())
         {
-            endpoint.MapEndpoint(app);
+            endpoint.MapEndpoint(group);
         }
 
         return app;
