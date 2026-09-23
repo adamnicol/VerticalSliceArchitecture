@@ -12,7 +12,7 @@ public static class RateLimiter
         public int QueueLimit { get; set; } = 0;
     }
 
-    public static IServiceCollection AddRateLimiter(this IServiceCollection services, ConfigurationManager configuration)
+    public static IServiceCollection AddRateLimiter(this IServiceCollection services, IConfiguration configuration)
     {
         var settings = configuration.GetSection("RateLimiter").Get<RateLimiterSettings>()
             ?? new RateLimiterSettings();

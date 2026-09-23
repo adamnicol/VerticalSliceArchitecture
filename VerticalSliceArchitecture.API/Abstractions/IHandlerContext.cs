@@ -5,6 +5,7 @@ namespace VerticalSliceArchitecture.API.Abstractions
     public interface IHandlerContext
     {
         DatabaseContext Database { get; }
-        Serilog.ILogger Log { get; }
+        IConfiguration Configuration { get; }
+        ILogger<IHandlerContext> Logger { get; }
     }
 }

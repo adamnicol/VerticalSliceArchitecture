@@ -7,12 +7,9 @@ namespace VerticalSliceArchitecture.Infrastructure.Database
     {
         public DbSet<User> Users { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public DatabaseContext(DbContextOptions options) : base(options)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseInMemoryDatabase("Test");
-            }
+
         }
     }
 }

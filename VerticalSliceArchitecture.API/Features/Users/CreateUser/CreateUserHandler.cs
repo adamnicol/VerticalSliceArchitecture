@@ -27,7 +27,7 @@ internal class CreateUserHandler(IHandlerContext ctx) : IRequestHandler
         await ctx.Database.Users.AddAsync(user, cancellationToken);
         await ctx.Database.SaveChangesAsync(cancellationToken);
 
-        ctx.Log.Information("New account created for {Email}", email);
+        ctx.Logger.LogInformation("New account created for {Email}", email);
 
         var response = new CreateUserResponse(user.UserId);
 
