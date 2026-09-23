@@ -14,10 +14,10 @@ public static class RateLimiter
 
     public static IServiceCollection AddRateLimiter(this IServiceCollection services, IConfiguration configuration)
     {
-        var settings = configuration.GetSection("RateLimiter").Get<RateLimiterSettings>()
+        var settings = configuration.GetSection("RateLimiting").Get<RateLimiterSettings>()
             ?? new RateLimiterSettings();
 
-        return services.AddRateLimiter((options) =>
+        return services.AddRateLimiter(options =>
         {
             options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
                 GetSlidingWindowLimiter(context, settings));

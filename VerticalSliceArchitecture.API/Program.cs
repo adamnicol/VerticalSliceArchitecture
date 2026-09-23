@@ -4,6 +4,7 @@ using VerticalSliceArchitecture.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAppSettings();
 builder.Services.AddEndpoints();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDependencies();
