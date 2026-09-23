@@ -1,20 +1,17 @@
 using Serilog;
-using System.Reflection;
-using VerticalSliceArchitecture.Infrastructure.Database;
+using VerticalSliceArchitecture.API.Configuration;
 using VerticalSliceArchitecture.API.Middleware;
+using VerticalSliceArchitecture.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSerilog((services, config) =>
-    config.ReadFrom.Configuration(builder.Configuration));
-
 builder.Services.AddEndpoints();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddRequestHandlers();
-builder.Services.AddValidatorsFromAssembly(Assembly.GetCallingAssembly());
 builder.Services.AddDependencies();
+builder.Services.AddLogging(builder.Configuration);
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>();
+builder.Services.AddRateLimiter(builder.Configuration);
 builder.Services.AddOutputCache();
 
 var app = builder.Build();
@@ -28,6 +25,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseOutputCache();
 app.UseSerilogRequestLogging();
+app.UseRateLimiter();
 app.MapEndpoints();
 
 app.UseMiddleware<ExceptionMiddleware>();
