@@ -2,10 +2,10 @@
 
 namespace VerticalSliceArchitecture.Domain.Abstractions
 {
-    public class Entity
+    public abstract class Entity
     {
-        public DateTime CreatedAt { get; set; }
-        public DateTime ModifiedAt { get; set; }
-        public EntityStatus Status { get; set; }
+        public DateTime CreatedAt { get; set; }   
+        public DateTime? ModifiedAt { get; set; }
+        public EntityStatus Status { get; set; } = EntityStatus.Active;
     }
 }

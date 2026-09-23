@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VerticalSliceArchitecture.Infrastructure.Database;
+using VerticalSliceArchitecture.Infrastructure.Database.Interceptors;
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
@@ -28,6 +29,9 @@ public static class Database
                     maxRetryDelay: TimeSpan.FromSeconds(10),
                     errorNumbersToAdd: null);
             });
+
+            options.AddInterceptors(new SoftDeleteInterceptor());
+            options.AddInterceptors(new AuditingInterceptor());
         });
     }
 

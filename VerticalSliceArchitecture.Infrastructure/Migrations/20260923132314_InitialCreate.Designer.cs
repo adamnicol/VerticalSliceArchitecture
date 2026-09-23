@@ -12,7 +12,7 @@ using VerticalSliceArchitecture.Infrastructure.Database;
 namespace VerticalSliceArchitecture.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20260923111319_InitialCreate")]
+    [Migration("20260923132314_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -36,14 +36,16 @@ namespace VerticalSliceArchitecture.Infrastructure.Migrations
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
-                    b.Property<DateTime>("ModifiedAt")
+                    b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
