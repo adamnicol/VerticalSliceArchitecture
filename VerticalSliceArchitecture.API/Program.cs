@@ -13,6 +13,7 @@ builder.Services.AddRateLimiter(builder.Configuration);
 builder.Services.AddAppSettings();
 builder.Services.AddOutputCache();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
