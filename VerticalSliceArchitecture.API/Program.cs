@@ -14,6 +14,7 @@ builder.Services.AddAppSettings();
 builder.Services.AddOutputCache();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
+builder.Services.AddValidation();
 
 var app = builder.Build();
 

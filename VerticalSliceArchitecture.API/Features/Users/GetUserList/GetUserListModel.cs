@@ -1,15 +1,11 @@
-﻿using VerticalSliceArchitecture.Domain.Entities;
+﻿using VerticalSliceArchitecture.API.Abstractions;
+using VerticalSliceArchitecture.Domain.Entities;
 
 namespace VerticalSliceArchitecture.API.Features.Users.GetUserList;
 
-public record GetUserListRequest(int Page, int PageSize);
+public record GetUserListRequest : PaginatedRequest;
 
-public record GetUserListResponse
-{
-    public required IEnumerable<UserDto> Users { get; set; }
-    public required int Total { get; set; }
-    public required int Returned { get; set; }
-}
+public record GetUserListResponse : PaginatedResponse<UserDto>;
 
 public class UserDto
 {

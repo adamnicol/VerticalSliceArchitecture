@@ -19,7 +19,7 @@ internal class GetUserListHandler(IHandlerContext ctx) : IRequestHandler
 
         return new GetUserListResponse()
         {
-            Users = users.Select(UserDto.Create),
+            Items = users.Select(UserDto.Create),
             Total = total,
             Returned = users.Count,
         };
