@@ -2,7 +2,7 @@
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
-public static class RateLimiter
+public static class RateLimitConfiguration
 {
     private class RateLimiterSettings
     {

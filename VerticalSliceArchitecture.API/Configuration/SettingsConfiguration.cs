@@ -1,6 +1,6 @@
 ﻿namespace VerticalSliceArchitecture.API.Configuration;
 
-public static class Options
+public static class SettingsConfiguration
 {
     public static IServiceCollection AddAppSettings(this IServiceCollection services)
     {

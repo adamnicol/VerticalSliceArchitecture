@@ -4,13 +4,13 @@ using VerticalSliceArchitecture.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAppSettings();
 builder.Services.AddEndpoints();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDependencies();
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddLogging(builder.Configuration);
 builder.Services.AddRateLimiter(builder.Configuration);
+builder.Services.AddAppSettings();
 builder.Services.AddOutputCache();
 builder.Services.AddSwaggerGen();
 

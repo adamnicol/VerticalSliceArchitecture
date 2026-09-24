@@ -3,7 +3,7 @@ using VerticalSliceArchitecture.API.Abstractions;
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
-public static class Endpoints
+public static class EndpointConfiguration
 {
     public static IServiceCollection AddEndpoints(this IServiceCollection services)
     {

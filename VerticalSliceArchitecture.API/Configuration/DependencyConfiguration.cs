@@ -3,7 +3,7 @@ using VerticalSliceArchitecture.API.Abstractions;
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
-public static class Dependencies
+public static class DependencyConfiguration
 {
     public static IServiceCollection AddDependencies(this IServiceCollection services)
     {

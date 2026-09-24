@@ -2,7 +2,7 @@
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
-public static class Logging
+public static class LoggingConfiguration
 {
     public static IServiceCollection AddLogging(this IServiceCollection services, IConfiguration configuration)
     {

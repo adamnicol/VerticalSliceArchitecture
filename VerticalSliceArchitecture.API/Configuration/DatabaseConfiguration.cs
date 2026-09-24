@@ -4,17 +4,15 @@ using VerticalSliceArchitecture.Infrastructure.Database.Interceptors;
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
-public static class Database
+public static class DatabaseConfiguration
 {
     public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         if (string.IsNullOrWhiteSpace(connectionString))
-        {
-            throw new InvalidOperationException("Connection string not set");
-        }
-
-        return services.AddDbContext<DatabaseContext>(connectionString);
+            throw new ArgumentNullException("Connection string not set");
+            
+        return AddDbContext<DatabaseContext>(services, connectionString);
     }
 
     public static IServiceCollection AddDbContext<TContext>(this IServiceCollection services, string connectionString) 
