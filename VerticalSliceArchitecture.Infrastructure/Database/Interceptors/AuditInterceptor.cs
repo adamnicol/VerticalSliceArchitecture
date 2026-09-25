@@ -25,7 +25,7 @@ public sealed class AuditingInterceptor : SaveChangesInterceptor
     {
         DateTime timestamp = DateTime.Now;
 
-        foreach (var entry in context!.ChangeTracker.Entries<Entity>())
+        foreach (var entry in context!.ChangeTracker.Entries<AuditableEntity>())
         {
             switch (entry.State)
             {

@@ -2,7 +2,7 @@
 
 namespace VerticalSliceArchitecture.Domain.Abstractions
 {
-    public abstract class Entity
+    public abstract class AuditableEntity : ISoftDelete
     {
         public DateTime CreatedAt { get; set; }   
         public DateTime? ModifiedAt { get; set; }

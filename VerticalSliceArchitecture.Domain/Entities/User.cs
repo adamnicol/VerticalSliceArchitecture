@@ -3,7 +3,7 @@ using VerticalSliceArchitecture.Domain.Abstractions;
 
 namespace VerticalSliceArchitecture.Domain.Entities
 {
-    public class User : Entity, ISoftDelete
+    public class User : AuditableEntity, ISoftDelete
     {
         [Key]
         public required Guid UserId { get; set; }
