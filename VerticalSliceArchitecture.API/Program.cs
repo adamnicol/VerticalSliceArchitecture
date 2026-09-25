@@ -18,13 +18,6 @@ builder.Services.AddValidation();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.RunMigrations();
-}
-
 app.MapEndpoints();
 app.UseHttpsRedirection();
 app.UseOutputCache();
@@ -32,5 +25,13 @@ app.UseSerilogRequestLogging();
 app.UseRateLimiter();
 
 app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<MaintenanceMiddleware>();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.RunMigrations();
+}
 
 app.Run();

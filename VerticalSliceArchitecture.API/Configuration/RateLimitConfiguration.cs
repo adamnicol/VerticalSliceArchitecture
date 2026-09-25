@@ -4,18 +4,10 @@ namespace VerticalSliceArchitecture.API.Configuration;
 
 public static class RateLimitConfiguration
 {
-    private class RateLimiterSettings
-    {
-        public int PermitLimit { get; set; } = 100;
-        public int WindowInSeconds { get; set; } = 60;
-        public int SegmentsPerWindow { get; set; } = 6;
-        public int QueueLimit { get; set; } = 0;
-    }
-
     public static IServiceCollection AddRateLimiter(this IServiceCollection services, IConfiguration configuration)
     {
-        var settings = configuration.GetSection("RateLimiting").Get<RateLimiterSettings>()
-            ?? new RateLimiterSettings();
+        var settings = configuration.GetSection(nameof(RateLimiting)).Get<RateLimiting>() 
+            ?? new RateLimiting();
 
         return services.AddRateLimiter(options =>
         {
@@ -24,7 +16,7 @@ public static class RateLimitConfiguration
         });
     }
 
-    private static RateLimitPartition<string> GetSlidingWindowLimiter(HttpContext context, RateLimiterSettings settings)
+    private static RateLimitPartition<string> GetSlidingWindowLimiter(HttpContext context, RateLimiting settings)
     {
         var partitionKey = context.User.Identity?.Name 
             ?? context.Connection.RemoteIpAddress?.ToString() 
