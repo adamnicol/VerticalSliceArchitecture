@@ -4,7 +4,7 @@ using VerticalSliceArchitecture.Domain.Entities;
 
 namespace VerticalSliceArchitecture.API.Features.Users.CreateUser;
 
-internal class CreateUserHandler(IHandlerContext ctx) : IRequestHandler
+internal class CreateUserHandler(IHandlerContext context) : RequestHandler(context)
 {
     public async Task<ErrorOr<CreateUserResponse>> HandleAsync(
         CreateUserRequest request,
@@ -12,7 +12,7 @@ internal class CreateUserHandler(IHandlerContext ctx) : IRequestHandler
     {
         string email = request.Email.ToLower().Trim();
 
-        if (await ctx.Database.Users.AnyAsync(user => user.EmailAddress == email, cancellationToken))
+        if (await Database.Users.AnyAsync(user => user.EmailAddress == email, cancellationToken))
         {
             return Error.Conflict();
         }
@@ -24,10 +24,10 @@ internal class CreateUserHandler(IHandlerContext ctx) : IRequestHandler
             Password = request.Password,
         };
 
-        await ctx.Database.Users.AddAsync(user, cancellationToken);
-        await ctx.Database.SaveChangesAsync(cancellationToken);
+        await Database.Users.AddAsync(user, cancellationToken);
+        await Database.SaveChangesAsync(cancellationToken);
 
-        ctx.Logger.LogInformation("New account created for {Email}", email);
+        Logger.LogInformation("New account created for {Email}", email);
 
         var response = new CreateUserResponse(user.UserId);
 

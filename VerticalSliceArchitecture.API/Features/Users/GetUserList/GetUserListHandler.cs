@@ -3,14 +3,14 @@ using VerticalSliceArchitecture.API.Abstractions;
 
 namespace VerticalSliceArchitecture.API.Features.Users.GetUserList;
 
-internal class GetUserListHandler(IHandlerContext ctx) : IRequestHandler
+internal class GetUserListHandler(IHandlerContext context) : RequestHandler(context)
 {
     public async Task<ErrorOr<GetUserListResponse>> HandleAsync(
         GetUserListRequest request,
         CancellationToken cancellationToken)
     {
-        var total = await ctx.Database.Users.CountAsync(cancellationToken);
-        var users = await ctx.Database.Users
+        var total = await Database.Users.CountAsync(cancellationToken);
+        var users = await Database.Users
             .AsNoTracking()
             .OrderBy(user => user.UserId)
             .Skip((request.Page - 1) * request.PageSize)

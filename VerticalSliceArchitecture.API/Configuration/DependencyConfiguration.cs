@@ -19,7 +19,7 @@ public static class DependencyConfiguration
     {
         foreach (Type type in assembly.DefinedTypes)
         {
-            if (type.IsClass && type.IsAssignableTo(typeof(IRequestHandler)))
+            if (type is { IsClass: true, IsAbstract: false } && type.IsAssignableTo(typeof(IRequestHandler)))
             {
                 services.Add(ServiceDescriptor.Transient(type, type));
             }

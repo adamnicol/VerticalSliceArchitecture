@@ -6,12 +6,12 @@ namespace VerticalSliceArchitecture.API.Abstractions
     {
         public DatabaseContext Database { get; }
         public HttpClient HttpClient { get; }
-        public ILogger<IHandlerContext> Logger { get; }
+        public ILogger<RequestHandler> Logger { get; }
 
         public HandlerContext(
             DatabaseContext database,
             HttpClient httpClient,
-            ILogger<IHandlerContext> logger)
+            ILogger<RequestHandler> logger)
         {
             Database = database;
             Logger = logger;
