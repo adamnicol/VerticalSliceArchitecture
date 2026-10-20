@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using VerticalSliceArchitecture.Infrastructure.Database;
 using VerticalSliceArchitecture.Infrastructure.Database.Interceptors;
 
@@ -6,21 +7,13 @@ namespace VerticalSliceArchitecture.API.Configuration;
 
 public static class DatabaseConfiguration
 {
-    public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddDatabase(this IServiceCollection services) 
     {
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
-        if (string.IsNullOrWhiteSpace(connectionString))
-            throw new ArgumentNullException("Connection string not set");
-            
-        return AddDbContext<DatabaseContext>(services, connectionString);
-    }
-
-    public static IServiceCollection AddDbContext<TContext>(this IServiceCollection services, string connectionString) 
-        where TContext : DbContext
-    {
-        return services.AddDbContext<TContext>(options =>
+        return services.AddDbContext<DatabaseContext>((sp, options) =>
         {
-            options.UseSqlServer(connectionString, settings =>
+            var connectionStrings = sp.GetRequiredService<IOptions<ConnectionStrings>>();
+
+            options.UseSqlServer(connectionStrings.Value.DefaultConnection, settings =>
             {
                 settings.EnableRetryOnFailure(
                     maxRetryCount: 3,
