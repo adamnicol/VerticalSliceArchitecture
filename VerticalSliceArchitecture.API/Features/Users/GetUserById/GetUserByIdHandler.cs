@@ -4,7 +4,7 @@ using VerticalSliceArchitecture.Domain.Entities;
 
 namespace VerticalSliceArchitecture.API.Features.Users.GetUserById;
 
-internal class GetUserByIdHandler(IHandlerContext context) : RequestHandler(context)
+public class GetUserByIdHandler(IHandlerContext context) : RequestHandler(context)
 {
     public async Task<ErrorOr<GetUserByIdResponse>> HandleAsync(
         GetUserByIdRequest request,

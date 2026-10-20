@@ -3,7 +3,7 @@ using VerticalSliceArchitecture.API.Abstractions;
 
 namespace VerticalSliceArchitecture.API.Features.Users.GetUserList;
 
-internal class GetUserListHandler(IHandlerContext context) : RequestHandler(context)
+public class GetUserListHandler(IHandlerContext context) : RequestHandler(context)
 {
     public async Task<ErrorOr<GetUserListResponse>> HandleAsync(
         GetUserListRequest request,

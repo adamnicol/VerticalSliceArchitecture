@@ -1,4 +1,6 @@
-﻿namespace VerticalSliceArchitecture.API.Features.Users.CreateUser;
+﻿using VerticalSliceArchitecture.API.Configuration;
+
+namespace VerticalSliceArchitecture.API.Features.Users.CreateUser;
 
 public class Validator : AbstractValidator<CreateUserRequest>
 {
@@ -10,6 +12,6 @@ public class Validator : AbstractValidator<CreateUserRequest>
 
         RuleFor(x => x.Password)
             .NotEmpty()
-            .MinimumLength(8);
+            .MinimumLength(Constants.MinimumPasswordLength);
     }
 }

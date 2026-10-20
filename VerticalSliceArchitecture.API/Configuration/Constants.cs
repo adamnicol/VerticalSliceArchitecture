@@ -4,6 +4,7 @@
     {
         public const string RoutePrefix = "/api";
 
-        public const int MaxPageSize = 1000;
+        public const int MaximumPageSize = 1000;
+        public const int MinimumPasswordLength = 8;
     }
 }
