@@ -3,7 +3,7 @@ using VerticalSliceArchitecture.Domain.Entities;
 
 namespace VerticalSliceArchitecture.API.Features.Users.GetUserList
 {
-    public record GetUserListResponse : PaginatedResponse<UserDto>;
+    public record Response : PaginatedResponse<UserDto>;
 
     public class UserDto
     {

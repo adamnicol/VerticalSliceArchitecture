@@ -5,7 +5,7 @@ namespace VerticalSliceArchitecture.API.Features.Users.GetUserList;
 
 public class Handler(IHandlerContext context) : RequestHandler(context)
 {
-    public async Task<ErrorOr<GetUserListResponse>> HandleAsync(
+    public async Task<ErrorOr<Response>> HandleAsync(
         Request request,
         CancellationToken cancellationToken)
     {
@@ -17,7 +17,7 @@ public class Handler(IHandlerContext context) : RequestHandler(context)
             .Take(request.PageSize)
             .ToListAsync(cancellationToken);
 
-        return new GetUserListResponse()
+        return new Response()
         {
             Items = users.Select(UserDto.Create),
             Total = total,
