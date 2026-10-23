@@ -7,8 +7,8 @@ public static class DependencyConfiguration
 {
     public static IServiceCollection AddDependencies(this IServiceCollection services)
     {
-        services.AddRequestHandlers(Assembly.GetCallingAssembly());
-        services.AddValidatorsFromAssembly(Assembly.GetCallingAssembly());
+        services.AddRequestHandlers(Assembly.GetExecutingAssembly());
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         services.AddScoped<IHandlerContext, HandlerContext>();
 

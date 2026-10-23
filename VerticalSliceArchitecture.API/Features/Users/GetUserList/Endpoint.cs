@@ -13,7 +13,6 @@ public class Endpoint : IEndpoint
         {
             var response = await handler.HandleAsync(request, cancellationToken);
             return response.ToResult();
-        })
-            .WithTags("Users");
+        });
     }
 }

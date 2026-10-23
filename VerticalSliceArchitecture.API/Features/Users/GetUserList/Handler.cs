@@ -19,7 +19,7 @@ public class Handler(IHandlerContext context) : RequestHandler(context)
 
         return new Response()
         {
-            Items = users.Select(UserDto.Create),
+            Results = users.Select(UserDto.Create),
             Total = total,
             Returned = users.Count,
         };

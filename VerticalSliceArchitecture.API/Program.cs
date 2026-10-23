@@ -9,10 +9,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDependencies();
 builder.Services.AddDatabases();
 builder.Services.AddLogging(builder.Configuration);
-builder.Services.AddRateLimiter(builder.Configuration);
 builder.Services.AddAppSettings();
 builder.Services.AddOutputCache();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwagger();
 builder.Services.AddHttpClient();
 builder.Services.AddValidation();
 
@@ -22,7 +21,6 @@ app.MapEndpoints();
 app.UseHttpsRedirection();
 app.UseOutputCache();
 app.UseSerilogRequestLogging();
-app.UseRateLimiter();
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseMiddleware<MaintenanceMiddleware>();

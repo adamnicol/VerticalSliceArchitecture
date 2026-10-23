@@ -1,22 +1,26 @@
-﻿namespace VerticalSliceArchitecture.API.Extensions;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+
+namespace VerticalSliceArchitecture.API.Extensions;
 
 public static class ErrorOrExtensions
 {
-    public static IResult ToResult<T>(this ErrorOr<T> result)
+    public static Results<Ok<T>, ProblemHttpResult> ToResult<T>(this ErrorOr<T> result)
     {
         if (!result.IsError)
         {
-            return Results.Ok(result.Value);
+            return TypedResults.Ok(result.Value);
         }
 
-        return result.FirstError.Type switch
+        int statusCode = result.FirstError.Type switch
         {
-            ErrorType.NotFound => Results.NotFound(),
-            ErrorType.Validation => Results.BadRequest(),
-            ErrorType.Conflict => Results.Conflict(),
-            ErrorType.Unauthorized => Results.Unauthorized(),
-            ErrorType.Forbidden => Results.Forbid(),
-            _ => Results.InternalServerError()
+            ErrorType.NotFound => StatusCodes.Status404NotFound,
+            ErrorType.Validation => StatusCodes.Status400BadRequest,
+            ErrorType.Conflict => StatusCodes.Status409Conflict,
+            ErrorType.Unauthorized => StatusCodes.Status401Unauthorized,
+            ErrorType.Forbidden => StatusCodes.Status403Forbidden,
+            _ => StatusCodes.Status500InternalServerError
         };
+
+        return TypedResults.Problem(statusCode: statusCode);
     }
 }
