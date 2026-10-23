@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using VerticalSliceArchitecture.Domain.Abstractions;
+﻿using VerticalSliceArchitecture.Domain.Abstractions;
 
 namespace VerticalSliceArchitecture.Domain.Entities
 {

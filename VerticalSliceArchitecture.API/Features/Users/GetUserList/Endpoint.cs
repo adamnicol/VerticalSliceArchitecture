@@ -2,13 +2,13 @@
 
 namespace VerticalSliceArchitecture.API.Features.Users.GetUserList;
 
-public class GetUserListEndpoint : IEndpoint
+public class Endpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("/users", async (
-            [AsParameters] GetUserListRequest request,
-            GetUserListHandler handler,
+            [AsParameters] Request request,
+            Handler handler,
             CancellationToken cancellationToken) =>
         {
             var response = await handler.HandleAsync(request, cancellationToken);

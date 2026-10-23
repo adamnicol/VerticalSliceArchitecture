@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpoints();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDependencies();
-builder.Services.AddDatabase();
+builder.Services.AddDatabases();
 builder.Services.AddLogging(builder.Configuration);
 builder.Services.AddRateLimiter(builder.Configuration);
 builder.Services.AddAppSettings();

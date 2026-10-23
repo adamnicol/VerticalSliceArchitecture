@@ -2,7 +2,7 @@
 
 namespace VerticalSliceArchitecture.API.Features.Users.CreateUser;
 
-public class Validator : AbstractValidator<CreateUserRequest>
+public class Validator : AbstractValidator<Request>
 {
     public Validator()
     {

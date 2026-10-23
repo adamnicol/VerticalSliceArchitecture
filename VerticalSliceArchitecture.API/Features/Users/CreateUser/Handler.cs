@@ -4,10 +4,10 @@ using VerticalSliceArchitecture.Domain.Entities;
 
 namespace VerticalSliceArchitecture.API.Features.Users.CreateUser;
 
-public class CreateUserHandler(IHandlerContext context) : RequestHandler(context)
+public class Handler(IHandlerContext context) : RequestHandler(context)
 {
-    public async Task<ErrorOr<CreateUserResponse>> HandleAsync(
-        CreateUserRequest request,
+    public async Task<ErrorOr<Response>> HandleAsync(
+        Request request,
         CancellationToken cancellationToken)
     {
         string email = request.Email.ToLower().Trim();
@@ -29,7 +29,7 @@ public class CreateUserHandler(IHandlerContext context) : RequestHandler(context
 
         Log.Information("New account created for {Email}", email);
 
-        var response = new CreateUserResponse(user.UserId);
+        var response = new Response(user.UserId);
 
         return response;
     }

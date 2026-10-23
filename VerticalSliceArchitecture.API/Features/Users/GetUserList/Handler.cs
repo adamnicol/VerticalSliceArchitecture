@@ -3,10 +3,10 @@ using VerticalSliceArchitecture.API.Abstractions;
 
 namespace VerticalSliceArchitecture.API.Features.Users.GetUserList;
 
-public class GetUserListHandler(IHandlerContext context) : RequestHandler(context)
+public class Handler(IHandlerContext context) : RequestHandler(context)
 {
     public async Task<ErrorOr<GetUserListResponse>> HandleAsync(
-        GetUserListRequest request,
+        Request request,
         CancellationToken cancellationToken)
     {
         var total = await Database.Users.CountAsync(cancellationToken);

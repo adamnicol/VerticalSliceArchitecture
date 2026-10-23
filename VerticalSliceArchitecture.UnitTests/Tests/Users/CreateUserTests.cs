@@ -9,8 +9,8 @@ public class CreateUserTests
     {
         var context = HandlerContextFactory.GetHandlerContext();
 
-        var handler = new CreateUserHandler(context);
-        var request = new CreateUserRequest("user@domain.com", "password");
+        var handler = new Handler(context);
+        var request = new Request("user@domain.com", "password");
 
         var response = await handler.HandleAsync(request, default);
 

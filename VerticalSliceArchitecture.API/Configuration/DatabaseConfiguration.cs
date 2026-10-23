@@ -7,7 +7,12 @@ namespace VerticalSliceArchitecture.API.Configuration;
 
 public static class DatabaseConfiguration
 {
-    public static IServiceCollection AddDatabase(this IServiceCollection services) 
+    internal static IServiceCollection AddDatabases(this IServiceCollection services)
+    {
+        return AddMainDatabase(services);
+    }
+
+    private static IServiceCollection AddMainDatabase(this IServiceCollection services) 
     {
         return services.AddDbContext<DatabaseContext>((sp, options) =>
         {

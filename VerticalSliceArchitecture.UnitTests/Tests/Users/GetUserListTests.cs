@@ -36,8 +36,8 @@ public class GetUserListTests
         await context.Database.Users.AddRangeAsync(users);
         await context.Database.SaveChangesAsync();
 
-        var handler = new GetUserListHandler(context);
-        var request = new GetUserListRequest();
+        var handler = new Handler(context);
+        var request = new Request();
 
         var response = await handler.HandleAsync(request, default);
 

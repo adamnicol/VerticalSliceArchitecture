@@ -20,8 +20,8 @@ public class GetUserByIdTests
         await context.Database.Users.AddAsync(user);
         await context.Database.SaveChangesAsync();
 
-        var handler = new GetUserByIdHandler(context);
-        var request = new GetUserByIdRequest(user.UserId);
+        var handler = new Handler(context);
+        var request = new Request(user.UserId);
 
         var response = await handler.HandleAsync(request, default);
 

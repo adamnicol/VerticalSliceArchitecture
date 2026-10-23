@@ -4,10 +4,10 @@ using VerticalSliceArchitecture.Domain.Entities;
 
 namespace VerticalSliceArchitecture.API.Features.Users.GetUserById;
 
-public class GetUserByIdHandler(IHandlerContext context) : RequestHandler(context)
+public class Handler(IHandlerContext context) : RequestHandler(context)
 {
-    public async Task<ErrorOr<GetUserByIdResponse>> HandleAsync(
-        GetUserByIdRequest request,
+    public async Task<ErrorOr<Response>> HandleAsync(
+        Request request,
         CancellationToken cancellationToken)
     {
         User? user = await Database.Users.FirstOrDefaultAsync(user => user.UserId == request.UserId, cancellationToken);
@@ -16,7 +16,7 @@ public class GetUserByIdHandler(IHandlerContext context) : RequestHandler(contex
             return Error.NotFound();
         }
 
-        var response = new GetUserByIdResponse(user.UserId, user.EmailAddress);
+        var response = new Response(user.UserId, user.EmailAddress);
 
         return response;
     }
