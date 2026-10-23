@@ -6,7 +6,7 @@ namespace VerticalSliceArchitecture.API.Features.Users.CreateUser;
 
 public class Handler(IHandlerContext context) : RequestHandler(context)
 {
-    public async Task<ErrorOr<Response>> HandleAsync(
+    public async Task<ErrorOr<Success>> HandleAsync(
         Request request,
         CancellationToken cancellationToken)
     {
@@ -29,8 +29,6 @@ public class Handler(IHandlerContext context) : RequestHandler(context)
 
         Log.Information("New account created for {Email}", email);
 
-        var response = new Response(user.UserId);
-
-        return response;
+        return Result.Success;
     }
 }
