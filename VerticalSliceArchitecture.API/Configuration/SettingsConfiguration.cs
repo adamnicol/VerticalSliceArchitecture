@@ -14,11 +14,6 @@ public static class SettingsConfiguration
             .ValidateDataAnnotations()
             .ValidateOnStart();
 
-        services.AddOptions<RateLimiting>()
-            .BindConfiguration(nameof(RateLimiting))
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
-
         return services;
     }
 }
