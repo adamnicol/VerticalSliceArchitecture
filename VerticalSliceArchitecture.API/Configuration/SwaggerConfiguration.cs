@@ -6,10 +6,10 @@ internal static class SwaggerConfiguration
 {
     internal static IServiceCollection AddSwagger(this IServiceCollection services)
     {
-        return services.AddSwaggerGen(x =>
+        return services.AddSwaggerGen(options =>
         {
-            x.CustomSchemaIds(x => x.FullName);
-            x.OperationFilter<FeatureTagOperationFilter>();
+            options.CustomSchemaIds(x => x.FullName);
+            options.OperationFilter<FeatureTagOperationFilter>();
         });
     }
 }

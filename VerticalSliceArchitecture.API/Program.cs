@@ -8,6 +8,7 @@ builder.Services.AddEndpoints();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDependencies();
 builder.Services.AddDatabases();
+builder.Services.AddErrorConfig();
 builder.Services.AddLogging(builder.Configuration);
 builder.Services.AddAppSettings();
 builder.Services.AddOutputCache();
@@ -19,16 +20,18 @@ var app = builder.Build();
 
 app.MapEndpoints();
 app.UseHttpsRedirection();
+app.UseExceptionHandler();
+app.UseStatusCodePages();
 app.UseOutputCache();
 app.UseSerilogRequestLogging();
 
-app.UseMiddleware<ExceptionMiddleware>();
 app.UseMiddleware<MaintenanceMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
     app.RunMigrations();
 }
 
