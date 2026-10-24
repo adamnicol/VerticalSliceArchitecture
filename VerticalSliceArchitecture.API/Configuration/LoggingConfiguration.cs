@@ -4,11 +4,12 @@ namespace VerticalSliceArchitecture.API.Configuration;
 
 public static class LoggingConfiguration
 {
-    public static IServiceCollection AddLogging(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddLoggingConfig(this IServiceCollection services)
     {
-        return services.AddSerilog((services, config) =>
+        return services.AddSerilog((provider, config) =>
         {
-            config.ReadFrom.Configuration(configuration);
-        });    
+            config.ReadFrom.Configuration(
+                provider.GetRequiredService<IConfiguration>());
+        });
     }
 }

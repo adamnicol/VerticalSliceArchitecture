@@ -9,7 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDependencies();
 builder.Services.AddDatabases();
 builder.Services.AddErrorConfig();
-builder.Services.AddLogging(builder.Configuration);
+builder.Services.AddLoggingConfig();
 builder.Services.AddAppSettings();
 builder.Services.AddOutputCache();
 builder.Services.AddSwagger();

@@ -1,14 +1,17 @@
-﻿namespace VerticalSliceArchitecture.API.Configuration;
+﻿using System.Diagnostics;
 
-public static class ErrorConfiguration
+namespace VerticalSliceArchitecture.API.Configuration;
+
+internal static class ErrorConfiguration
 {
-    public static IServiceCollection AddErrorConfig(this IServiceCollection services)
+    internal static IServiceCollection AddErrorConfig(this IServiceCollection services)
     {
         return services.AddProblemDetails(options =>
         {
             options.CustomizeProblemDetails = ctx =>
             {
                 ctx.ProblemDetails.Instance = ctx.HttpContext.Request.Path;
+                ctx.ProblemDetails.Extensions["traceId"] = Activity.Current?.TraceId.ToString();
             };
         });
     }
