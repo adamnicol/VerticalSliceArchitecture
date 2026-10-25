@@ -1,14 +1,21 @@
 <Project>
-	<PropertyGroup>
-		<Product>Vertical Slice</Product>
-		<Copyright>Adam Nicol $([System.DateTime]::Now.Year)</Copyright>
-		
-		<TargetFramework>net10.0</TargetFramework>
-		<BaseOutputPath>$(MSBuildThisFileDirectory)bin\</BaseOutputPath>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		
-		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-		<WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors>
-	</PropertyGroup>
+  <PropertyGroup>
+    <Product>Vertical Slice</Product>
+    <Copyright>Adam Nicol $([System.DateTime]::Now.Year)</Copyright>
+
+    <TargetFramework>net10.0</TargetFramework>
+    <BaseOutputPath>$(MSBuildThisFileDirectory)bin\</BaseOutputPath>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GitVersion.MsBuild">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 </Project>
