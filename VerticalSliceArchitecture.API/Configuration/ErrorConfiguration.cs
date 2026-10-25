@@ -4,7 +4,7 @@ namespace VerticalSliceArchitecture.API.Configuration;
 
 internal static class ErrorConfiguration
 {
-    internal static IServiceCollection AddErrorConfig(this IServiceCollection services)
+    internal static IServiceCollection AddErrorConfiguration(this IServiceCollection services)
     {
         return services.AddProblemDetails(options =>
         {

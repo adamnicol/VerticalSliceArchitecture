@@ -3,9 +3,9 @@ using VerticalSliceArchitecture.API.Abstractions;
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
-public static class DependencyConfiguration
+internal static class DependencyConfiguration
 {
-    public static IServiceCollection AddDependencies(this IServiceCollection services)
+    internal static IServiceCollection AddDependencies(this IServiceCollection services)
     {
         services.AddRequestHandlers(Assembly.GetExecutingAssembly());
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

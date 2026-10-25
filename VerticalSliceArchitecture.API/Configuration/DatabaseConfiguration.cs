@@ -5,7 +5,7 @@ using VerticalSliceArchitecture.Infrastructure.Database.Interceptors;
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
-public static class DatabaseConfiguration
+internal static class DatabaseConfiguration
 {
     internal static IServiceCollection AddDatabases(this IServiceCollection services)
     {
@@ -31,7 +31,7 @@ public static class DatabaseConfiguration
         });
     }
 
-    public static WebApplication RunMigrations(this WebApplication app)
+    internal static WebApplication RunMigrations(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
         {

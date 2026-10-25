@@ -2,9 +2,9 @@
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
-public static class LoggingConfiguration
+internal static class LoggingConfiguration
 {
-    public static IServiceCollection AddLoggingConfig(this IServiceCollection services)
+    internal static IServiceCollection AddLoggingConfiguration(this IServiceCollection services)
     {
         return services.AddSerilog((provider, config) =>
         {

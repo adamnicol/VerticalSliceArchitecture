@@ -1,8 +1,8 @@
 ﻿namespace VerticalSliceArchitecture.API.Configuration;
 
-public static class SettingsConfiguration
+internal static class SettingsConfiguration
 {
-    public static IServiceCollection AddAppSettings(this IServiceCollection services)
+    internal static IServiceCollection AddAppSettings(this IServiceCollection services)
     {
         services.AddOptions<AppSettings>()
             .BindConfiguration(string.Empty)

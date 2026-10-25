@@ -8,12 +8,11 @@ builder.Services.AddEndpoints();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDependencies();
 builder.Services.AddDatabases();
-builder.Services.AddErrorConfig();
-builder.Services.AddLoggingConfig();
+builder.Services.AddErrorConfiguration();
+builder.Services.AddLoggingConfiguration();
 builder.Services.AddAppSettings();
 builder.Services.AddOutputCache();
 builder.Services.AddSwagger();
-builder.Services.AddHttpClient();
 builder.Services.AddValidation();
 
 var app = builder.Build();

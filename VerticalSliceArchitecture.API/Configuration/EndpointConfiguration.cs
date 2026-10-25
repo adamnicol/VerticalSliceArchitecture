@@ -3,14 +3,14 @@ using VerticalSliceArchitecture.API.Abstractions;
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
-public static class EndpointConfiguration
+internal static class EndpointConfiguration
 {
-    public static IServiceCollection AddEndpoints(this IServiceCollection services)
+    internal static IServiceCollection AddEndpoints(this IServiceCollection services)
     {
         return services.AddEndpoints(Assembly.GetExecutingAssembly());
     }
 
-    public static IServiceCollection AddEndpoints(this IServiceCollection services, Assembly assembly)
+    internal static IServiceCollection AddEndpoints(this IServiceCollection services, Assembly assembly)
     {
         foreach (Type type in assembly.DefinedTypes)
         {
@@ -23,7 +23,7 @@ public static class EndpointConfiguration
         return services;
     }
 
-    public static WebApplication MapEndpoints(this WebApplication app)
+    internal static WebApplication MapEndpoints(this WebApplication app)
     {
         var group = app.MapGroup(Constants.RoutePrefix);
 
