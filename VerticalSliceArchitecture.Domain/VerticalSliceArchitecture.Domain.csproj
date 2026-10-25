@@ -1,11 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	
 	<ItemGroup>
-		<PackageReference Include="GitVersion.MsBuild" Version="6.8.2">
+		<PackageReference Include="GitVersion.MsBuild">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="10.0.13" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" />
 	</ItemGroup>
-
 </Project>
