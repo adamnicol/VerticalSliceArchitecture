@@ -33,13 +33,13 @@ public class GetUserListTests
     {
         var context = HandlerContextFactory.GetHandlerContext();
 
-        await context.Database.Users.AddRangeAsync(users);
-        await context.Database.SaveChangesAsync();
+        context.Database.Users.AddRange(users);
+        await context.Database.SaveChangesAsync(TestContext.Current.CancellationToken);
 
         var handler = new Handler(context);
         var request = new Request();
 
-        var response = await handler.HandleAsync(request, default);
+        var response = await handler.HandleAsync(request, TestContext.Current.CancellationToken);
 
         Assert.Equal(3, response.Value.Returned);
     }

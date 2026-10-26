@@ -17,13 +17,13 @@ public class GetUserByIdTests
 
         var context = HandlerContextFactory.GetHandlerContext();
 
-        await context.Database.Users.AddAsync(user);
-        await context.Database.SaveChangesAsync();
+        context.Database.Users.Add(user);
+        await context.Database.SaveChangesAsync(TestContext.Current.CancellationToken);
 
         var handler = new Handler(context);
         var request = new Request(user.UserId);
 
-        var response = await handler.HandleAsync(request, default);
+        var response = await handler.HandleAsync(request, TestContext.Current.CancellationToken);
 
         Assert.Equal(user.EmailAddress, response.Value.Email);
     }
