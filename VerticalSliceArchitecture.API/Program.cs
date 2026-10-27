@@ -14,10 +14,12 @@ builder.Services.AddAppSettings();
 builder.Services.AddOutputCache();
 builder.Services.AddSwagger();
 builder.Services.AddValidation();
+builder.Services.AddHealthCheckConfiguration();
 
 var app = builder.Build();
 
 app.MapEndpoints();
+app.MapHealthChecks();
 app.UseHttpsRedirection();
 app.UseExceptionHandler();
 app.UseStatusCodePages();
