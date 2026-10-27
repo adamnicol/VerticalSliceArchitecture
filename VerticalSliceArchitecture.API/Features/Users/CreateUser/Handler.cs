@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using VerticalSliceArchitecture.API.Abstractions;
 using VerticalSliceArchitecture.Domain.Entities;
 
@@ -17,11 +18,13 @@ public class Handler(IHandlerContext context) : RequestHandler(context)
             return Error.Conflict();
         }
 
+        var hasher = new PasswordHasher<string>();
+
         var user = new User()
         {
             UserId = Guid.NewGuid(),
             EmailAddress = email,
-            Password = request.Password,
+            Password = hasher.HashPassword(string.Empty, request.Password),
         };
 
         await Database.Users.AddAsync(user, cancellationToken);
