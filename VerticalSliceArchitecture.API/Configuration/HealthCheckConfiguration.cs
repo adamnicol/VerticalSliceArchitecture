@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Options;
+﻿using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using VerticalSliceArchitecture.Infrastructure.Database;
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
@@ -8,23 +9,28 @@ internal static class HealthCheckConfiguration
     internal static IServiceCollection AddHealthCheckConfiguration(this IServiceCollection services)
     {
         var builder = services.AddHealthChecks();
-        
-        builder.AddSqlServer(sp => sp.GetRequiredService<IOptions<ConnectionStrings>>().Value.DefaultConnection, 
-            name: "database");
+
+        builder.AddDbContextCheck<DatabaseContext>("database", tags: ["ready"]);
 
         return services;
     }
 
     internal static WebApplication MapHealthChecks(this WebApplication app)
     {
-        app.MapHealthChecks("/health", new HealthCheckOptions
+        app.MapHealthChecks("/health");
+        app.MapHealthChecks("/health/live", new HealthCheckOptions
         {
-            Predicate = (check) => false
+            Predicate = _ => false
         });
 
-        app.MapHealthChecks("/health/db", new HealthCheckOptions
+        app.MapHealthChecks("/health/ready", new HealthCheckOptions
         {
-            Predicate = (check) => check.Name == "database"
+            Predicate = (check) => check.Tags.Contains("ready")
+        });
+
+        app.MapHealthChecks("/health/detailed", new HealthCheckOptions
+        {
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
         });
 
         return app;
