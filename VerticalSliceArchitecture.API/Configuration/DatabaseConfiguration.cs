@@ -21,7 +21,7 @@ internal static class DatabaseConfiguration
             options.UseSqlServer(connectionStrings.Value.DefaultConnection, settings =>
             {
                 settings.EnableRetryOnFailure(
-                    maxRetryCount: 3,
+                    maxRetryCount: 2,
                     maxRetryDelay: TimeSpan.FromSeconds(10),
                     errorNumbersToAdd: null);
             });

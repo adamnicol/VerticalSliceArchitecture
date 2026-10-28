@@ -36,5 +36,4 @@ internal static class SwaggerConfiguration
             }
         }
     }
-
 }
