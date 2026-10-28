@@ -7,7 +7,7 @@ public class Endpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("/users/create", async (
+        app.MapPost("/users", async (
             Request request,
             Handler handler,
             CancellationToken cancellationToken) =>

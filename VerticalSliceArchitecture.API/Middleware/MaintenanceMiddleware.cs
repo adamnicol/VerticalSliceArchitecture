@@ -6,7 +6,8 @@ public class MaintenanceMiddleware(RequestDelegate next, IOptionsMonitor<AppSett
 {
     public async Task Invoke(HttpContext context)
     {
-        if (settings.CurrentValue.MaintenanceMode)
+        if (settings.CurrentValue.MaintenanceMode && 
+            !context.Request.Path.StartsWithSegments("/health/live"))
         {
             context.Response.StatusCode = StatusCodes.Status503ServiceUnavailable;
             await context.Response.WriteAsync("Down for maintenance");
