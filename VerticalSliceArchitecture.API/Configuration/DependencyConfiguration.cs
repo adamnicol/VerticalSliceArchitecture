@@ -1,5 +1,7 @@
-﻿using System.Reflection;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Reflection;
 using VerticalSliceArchitecture.API.Abstractions;
+using VerticalSliceArchitecture.Domain.Entities;
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
@@ -11,6 +13,7 @@ internal static class DependencyConfiguration
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         services.AddScoped<IHandlerContext, HandlerContext>();
+        services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
 
         return services;
     }
