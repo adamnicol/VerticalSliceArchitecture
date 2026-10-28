@@ -16,7 +16,7 @@ public class Handler(IHandlerContext context) : RequestHandler(context)
             return Error.NotFound();
         }
 
-        var response = new Response(user.UserId, user.EmailAddress);
+        var response = new Response(user.UserId, user.EmailAddress.Value);
 
         return response;
     }

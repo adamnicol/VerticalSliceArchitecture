@@ -1,5 +1,6 @@
 ﻿using VerticalSliceArchitecture.API.Features.Users.GetUserById;
 using VerticalSliceArchitecture.Domain.Entities;
+using VerticalSliceArchitecture.Domain.ValueObjects;
 
 namespace VerticalSliceArchitecture.UnitTests.Tests.Users;
 
@@ -11,7 +12,7 @@ public class GetUserByIdTests
         var user = new User()
         {
             UserId = Guid.NewGuid(),
-            EmailAddress = "user@domain.com",
+            EmailAddress = new Email("user@domain.com"),
             Password = "password"
         };
 
@@ -25,6 +26,6 @@ public class GetUserByIdTests
 
         var response = await handler.HandleAsync(request, TestContext.Current.CancellationToken);
 
-        Assert.Equal(user.EmailAddress, response.Value.Email);
+        Assert.Equal(user.EmailAddress.Value, response.Value.Email);
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using VerticalSliceArchitecture.API.Abstractions;
 using VerticalSliceArchitecture.Domain.Entities;
+using VerticalSliceArchitecture.Domain.ValueObjects;
 
 namespace VerticalSliceArchitecture.API.Features.Users.CreateUser;
 
@@ -11,7 +12,7 @@ public class Handler(IHandlerContext context, IPasswordHasher<User> hasher) : Re
         Request request,
         CancellationToken cancellationToken)
     {
-        string email = request.Email.ToLower().Trim();
+        var email = new Email(request.Email);
 
         if (await Database.Users.AnyAsync(user => user.EmailAddress == email, cancellationToken))
         {
@@ -27,7 +28,7 @@ public class Handler(IHandlerContext context, IPasswordHasher<User> hasher) : Re
 
         user.Password = hasher.HashPassword(user, request.Password);
 
-        await Database.Users.AddAsync(user, cancellationToken);
+        Database.Users.Add(user);
         await Database.SaveChangesAsync(cancellationToken);
 
         Log.Information("New account created for {Email}", email);

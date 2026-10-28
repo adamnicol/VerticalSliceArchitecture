@@ -2,6 +2,7 @@
 
 using VerticalSliceArchitecture.API.Features.Users.GetUserList;
 using VerticalSliceArchitecture.Domain.Entities;
+using VerticalSliceArchitecture.Domain.ValueObjects;
 
 namespace VerticalSliceArchitecture.UnitTests.Tests.Users;
 
@@ -11,19 +12,19 @@ public class GetUserListTests
         new User()
         {
             UserId = Guid.NewGuid(),
-            EmailAddress = "user1@domain.com",
+            EmailAddress = new Email("user1@domain.com"),
             Password = "password"
         },
         new User()
         {
             UserId = Guid.NewGuid(),
-            EmailAddress = "user2@domain.com",
+            EmailAddress = new Email("user2@domain.com"),
             Password = "password"
         },
         new User()
         {
             UserId = Guid.NewGuid(),
-            EmailAddress = "user3@domain.com",
+            EmailAddress = new Email("user3@domain.com"),
             Password = "password"
         },
     ];

@@ -3,6 +3,7 @@ using System.Reflection;
 using VerticalSliceArchitecture.Domain.Abstractions;
 using VerticalSliceArchitecture.Domain.Entities;
 using VerticalSliceArchitecture.Domain.Enums;
+using VerticalSliceArchitecture.Infrastructure.Database.Extensions;
 
 namespace VerticalSliceArchitecture.Infrastructure.Database
 {
@@ -10,9 +11,14 @@ namespace VerticalSliceArchitecture.Infrastructure.Database
     {
         public DbSet<User> Users { get; set; }
 
-        public DatabaseContext(DbContextOptions options) : base(options)
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
 
+        }
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+        {
+            builder.AddValueObjectConversions();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

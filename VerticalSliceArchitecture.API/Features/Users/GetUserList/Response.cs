@@ -15,7 +15,7 @@ namespace VerticalSliceArchitecture.API.Features.Users.GetUserList
             return new UserDto()
             {
                 UserId = user.UserId,
-                EmailAddress = user.EmailAddress,
+                EmailAddress = user.EmailAddress.Value,
             };
         }
     }
