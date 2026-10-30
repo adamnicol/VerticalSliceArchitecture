@@ -9,12 +9,8 @@ internal static class SwaggerConfiguration
     {
         return services.AddSwaggerGen(options =>
         {
+            options.CustomSchemaIds(x => x.FullName);
             options.OperationFilter<FeatureTagFilter>();
-            options.CustomSchemaIds(x =>
-            {
-                string? rootNamespace = typeof(Program).Assembly.GetName().Name;
-                return x.FullName?.Replace($"{rootNamespace}.Features.", string.Empty);
-            });
         });
     }
 

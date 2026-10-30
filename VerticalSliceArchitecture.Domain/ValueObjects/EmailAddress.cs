@@ -1,10 +1,10 @@
 ﻿namespace VerticalSliceArchitecture.Domain.ValueObjects;
 
-public class Email
+public class EmailAddress
 {
     public string Value { get; }
     
-    public Email(string value)
+    public EmailAddress(string value)
     {
         if (string.IsNullOrWhiteSpace(value) || !value.Contains("@"))
         {

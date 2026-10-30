@@ -12,7 +12,7 @@ public class Handler(IHandlerContext context, IPasswordHasher<User> hasher) : Re
         Request request,
         CancellationToken cancellationToken)
     {
-        var email = new Email(request.Email);
+        var email = new EmailAddress(request.Email);
 
         if (await Database.Users.AnyAsync(user => user.EmailAddress == email, cancellationToken))
         {

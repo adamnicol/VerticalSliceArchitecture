@@ -9,8 +9,8 @@ internal static class ModelConfigurationBuilderExtensions
     internal static ModelConfigurationBuilder AddValueObjectConversions(
         this ModelConfigurationBuilder builder)
     {
-        builder.Properties<Email>()
-            .HaveConversion<EmailConverter>();
+        builder.Properties<EmailAddress>()
+            .HaveConversion<EmailAddressConverter>();
 
         return builder;
     }

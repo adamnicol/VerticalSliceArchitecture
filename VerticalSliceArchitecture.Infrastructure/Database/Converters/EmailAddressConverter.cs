@@ -3,6 +3,6 @@ using VerticalSliceArchitecture.Domain.ValueObjects;
 
 namespace VerticalSliceArchitecture.Infrastructure.Database.Converters
 {
-    public sealed class EmailConverter()
-        : ValueConverter<Email, string>(x => x.Value, x => new Email(x));
+    public sealed class EmailAddressConverter()
+        : ValueConverter<EmailAddress, string>(x => x.Value, x => new EmailAddress(x));
 }

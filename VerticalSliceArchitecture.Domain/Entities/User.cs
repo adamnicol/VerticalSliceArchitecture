@@ -8,7 +8,7 @@ namespace VerticalSliceArchitecture.Domain.Entities
         [Key]
         public required Guid UserId { get; set; }
         [MaxLength(255)]
-        public required Email EmailAddress { get; set; }
+        public required EmailAddress EmailAddress { get; set; }
         [MaxLength(255)]
         public required string Password { get; set; }
     }
