@@ -18,15 +18,22 @@ builder.Services.AddHealthCheckConfiguration();
 
 var app = builder.Build();
 
-app.MapEndpoints();
-app.MapHealthChecks();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+}
+
 app.UseHttpsRedirection();
 app.UseExceptionHandler();
 app.UseStatusCodePages();
-app.UseOutputCache();
 app.UseSerilogRequestLogging();
 
+app.UseMiddleware<HeadersMiddleware>();
 app.UseMiddleware<MaintenanceMiddleware>();
+
+app.MapHealthChecks();
+app.UseOutputCache();
+app.MapEndpoints();
 
 if (app.Environment.IsDevelopment())
 {
