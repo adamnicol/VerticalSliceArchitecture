@@ -28,7 +28,7 @@ public static class ErrorOrExtensions
 
     private static ProblemHttpResult GetProblemDetails<T>(ErrorOr<T> result)
     {
-        int statusCode = result.FirstError.Type switch
+        int status = result.FirstError.Type switch
         {
             ErrorType.NotFound => StatusCodes.Status404NotFound,
             ErrorType.Validation => StatusCodes.Status400BadRequest,
@@ -39,7 +39,7 @@ public static class ErrorOrExtensions
         };
 
         return TypedResults.Problem(
-            statusCode: statusCode,
+            statusCode: status,
             detail: result.FirstError.Description);
     }
 }
