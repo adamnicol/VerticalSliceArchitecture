@@ -38,6 +38,8 @@ public static class ErrorOrExtensions
             _ => StatusCodes.Status500InternalServerError
         };
 
-        return TypedResults.Problem(statusCode: statusCode);
+        return TypedResults.Problem(
+            statusCode: statusCode,
+            detail: result.FirstError.Description);
     }
 }
