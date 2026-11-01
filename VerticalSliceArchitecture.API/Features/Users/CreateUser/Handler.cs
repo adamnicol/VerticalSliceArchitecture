@@ -8,7 +8,7 @@ namespace VerticalSliceArchitecture.API.Features.Users.CreateUser;
 
 public class Handler(IHandlerContext context, IPasswordHasher<User> hasher) : RequestHandler(context)
 {
-    public async Task<ErrorOr<Success>> HandleAsync(Request req, CancellationToken ct)
+    public async Task<ErrorOr<Created>> HandleAsync(Request req, CancellationToken ct)
     {
         var email = new EmailAddress(req.Email);
 
@@ -31,6 +31,6 @@ public class Handler(IHandlerContext context, IPasswordHasher<User> hasher) : Re
 
         Log.Information("New account created for {Email}", email);
 
-        return Result.Success;
+        return Result.Created;
     }
 }
