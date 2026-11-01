@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VerticalSliceArchitecture.API.Abstractions;
+using VerticalSliceArchitecture.Infrastructure.Database.Queries;
 
 namespace VerticalSliceArchitecture.API.Features.Users.GetUserList;
 
@@ -9,9 +10,10 @@ public class Handler(IHandlerContext context) : RequestHandler(context)
         Request request,
         CancellationToken cancellationToken)
     {
-        var total = await Database.Users.CountAsync(cancellationToken);
+        var total = await Database.Users.Active().CountAsync(cancellationToken);
         var users = await Database.Users
             .AsNoTracking()
+            .Active()
             .OrderBy(user => user.UserId)
             .Skip((request.Page - 1) * request.PageSize)
             .Take(request.PageSize)
