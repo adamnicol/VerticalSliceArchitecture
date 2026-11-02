@@ -5,11 +5,11 @@ namespace VerticalSliceArchitecture.API.Extensions;
 
 public static class ErrorOrExtensions
 {
-    public static Results<Ok<T>, ProblemHttpResult> ToResult<T>(this ErrorOr<T> result)
+    public static Results<NoContent, ProblemHttpResult> ToResult(this ErrorOr<Updated> result)
     {
-        return result.IsError 
+        return result.IsError
             ? GetProblemDetails(result)
-            : TypedResults.Ok(result.Value);
+            : TypedResults.NoContent();
     }
 
     public static Results<Created, ProblemHttpResult> ToResult(this ErrorOr<ErrorOr.Created> result)
@@ -19,11 +19,11 @@ public static class ErrorOrExtensions
             : TypedResults.Created();
     }
 
-    public static Results<NoContent, ProblemHttpResult> ToResult(this ErrorOr<Updated> result)
+    public static Results<Ok<T>, ProblemHttpResult> ToResult<T>(this ErrorOr<T> result)
     {
         return result.IsError
             ? GetProblemDetails(result)
-            : TypedResults.NoContent();
+            : TypedResults.Ok(result.Value);
     }
 
     private static ProblemHttpResult GetProblemDetails<T>(ErrorOr<T> result)
