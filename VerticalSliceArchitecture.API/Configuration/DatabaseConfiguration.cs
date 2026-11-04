@@ -27,7 +27,7 @@ internal static class DatabaseConfiguration
             });
 
             options.AddInterceptors(new SoftDeleteInterceptor());
-            options.AddInterceptors(new AuditingInterceptor());
+            options.AddInterceptors(new AuditInterceptor());
         });
     }
 

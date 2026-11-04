@@ -1,5 +1,4 @@
 ﻿using VerticalSliceArchitecture.API.Abstractions;
-using VerticalSliceArchitecture.API.Filters;
 
 namespace VerticalSliceArchitecture.API.Features.Users.CreateUser;
 
@@ -15,7 +14,7 @@ public class Endpoint : IEndpoint
             var response = await handler.HandleAsync(request, cancellationToken);
             return response.ToResult();
         })
-            .AddEndpointFilter<ValidationFilter<Request>>()
+            .WithValidation<Request>()
             .AllowAnonymous();
     }
 }

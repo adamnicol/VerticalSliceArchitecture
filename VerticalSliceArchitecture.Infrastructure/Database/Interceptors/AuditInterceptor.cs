@@ -4,7 +4,7 @@ using VerticalSliceArchitecture.Domain.Abstractions;
 
 namespace VerticalSliceArchitecture.Infrastructure.Database.Interceptors;
 
-public sealed class AuditingInterceptor : SaveChangesInterceptor
+public sealed class AuditInterceptor : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
