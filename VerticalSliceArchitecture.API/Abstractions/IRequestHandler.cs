@@ -2,6 +2,11 @@
 {
     public interface IRequestHandler;
 
+    public interface IRequestHandler<TResponse> : IRequestHandler
+    {
+        Task<ErrorOr<TResponse>> HandleAsync(CancellationToken cancellationToken);
+    }
+
     public interface IRequestHandler<TRequest, TResponse> : IRequestHandler
     {
         Task<ErrorOr<TResponse>> HandleAsync(TRequest request, CancellationToken cancellationToken);
