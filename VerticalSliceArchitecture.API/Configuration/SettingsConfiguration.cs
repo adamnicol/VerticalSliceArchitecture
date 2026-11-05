@@ -2,7 +2,7 @@
 
 internal static class SettingsConfiguration
 {
-    internal static IServiceCollection AddAppSettings(this IServiceCollection services)
+    internal static IServiceCollection AddSettings(this IServiceCollection services)
     {
         services.AddOptions<AppSettings>()
             .BindConfiguration(string.Empty)
