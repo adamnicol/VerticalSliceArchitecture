@@ -10,7 +10,12 @@ internal static class SettingsConfiguration
             .ValidateOnStart();
 
         services.AddOptions<ConnectionStrings>()
-            .BindConfiguration(nameof(ConnectionStrings))
+            .BindConfiguration(nameof(AppSettings.ConnectionStrings))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+        services.AddOptions<AuthenticationSettings>()
+            .BindConfiguration(nameof(AppSettings.Authentication))
             .ValidateDataAnnotations()
             .ValidateOnStart();
 

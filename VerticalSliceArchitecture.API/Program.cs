@@ -3,20 +3,21 @@ using VerticalSliceArchitecture.API.Configuration;
 using VerticalSliceArchitecture.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
 
-builder.Services.AddEndpoints();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDependencies();
-builder.Services.AddDatabases();
-builder.Services.AddAuthentication();
-builder.Services.AddAuthorization();
-builder.Services.AddErrorConfiguration();
-builder.Services.AddLoggingConfiguration();
-builder.Services.AddValidation();
-builder.Services.AddHealthCheckConfiguration();
-builder.Services.AddSettings();
-builder.Services.AddOutputCache();
-builder.Services.AddSwagger();
+services.AddEndpoints();
+services.AddEndpointsApiExplorer();
+services.AddDependencies();
+services.AddDatabases();
+services.AddAuthentication(builder.Configuration);
+services.AddAuthorization();
+services.AddErrorConfiguration();
+services.AddLoggingConfiguration();
+services.AddValidation();
+services.AddHealthCheckConfiguration();
+services.AddSettings();
+services.AddOutputCache();
+services.AddSwagger();
 
 var app = builder.Build();
 

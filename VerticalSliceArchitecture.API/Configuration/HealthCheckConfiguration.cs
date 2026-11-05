@@ -17,7 +17,6 @@ internal static class HealthCheckConfiguration
 
     internal static WebApplication MapHealthChecks(this WebApplication app)
     {
-        app.MapHealthChecks("/health");
         app.MapHealthChecks("/health/live", new HealthCheckOptions
         {
             Predicate = _ => false

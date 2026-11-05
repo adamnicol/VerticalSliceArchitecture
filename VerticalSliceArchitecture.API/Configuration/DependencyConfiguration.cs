@@ -26,14 +26,6 @@ internal static class DependencyConfiguration
             {
                 services.Add(ServiceDescriptor.Transient(type, type));
             }
-
-            foreach (Type @interface in type.GetInterfaces())
-            {
-                if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof(IRequestHandler<,>))
-                {
-                    services.AddTransient(@interface, type);
-                }
-            }
         }
 
         return services;

@@ -9,10 +9,10 @@ internal static class DatabaseConfiguration
 {
     internal static IServiceCollection AddDatabases(this IServiceCollection services)
     {
-        return AddMainDatabase(services);
+        return AddDefaultDatabase(services);
     }
 
-    private static IServiceCollection AddMainDatabase(this IServiceCollection services) 
+    private static IServiceCollection AddDefaultDatabase(this IServiceCollection services) 
     {
         return services.AddDbContext<DatabaseContext>((sp, options) =>
         {
