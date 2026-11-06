@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace VerticalSliceArchitecture.API.Configuration;
@@ -12,31 +11,43 @@ internal static class AuthConfiguration
             .GetRequiredSection(nameof(AppSettings.Authentication))
             .Get<AuthenticationSettings>();
 
-        if (settings?.OpenIdConnect != null)
+        if (settings != null)
         {
-            services.AddOpenIdConnect(settings.OpenIdConnect);
-        }        
+            AddOpenIdConnect(services, settings.Oidc);
+        }
     }
 
-    internal static void AddOpenIdConnect(this IServiceCollection services, OidcSettings settings)
+    internal static void AddOpenIdConnect(IServiceCollection services, OidcSettings settings)
     {
-        services.AddAuthentication(options =>
+        var builder = services.AddAuthentication(options =>
         {
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-        })
-            .AddCookie()
-            .AddOpenIdConnect(options =>
+            options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        });
+
+        builder.AddCookie(options =>
+        {
+            options.Events.OnRedirectToLogin = (context) =>
             {
-                options.Authority = settings.Authority;
-                options.ClientId = settings.ClientId;
-                options.ClientSecret = settings.ClientSecret;
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                return Task.CompletedTask;
+            };
+        });
+        
+        builder.AddOpenIdConnect(options =>
+        {
+            options.Authority = settings.Authority;
+            options.ClientId = settings.ClientId;
+            options.ClientSecret = settings.ClientSecret;
+            options.CallbackPath = settings.CallbackPath ?? "/signin-oidc";
 
-                options.ResponseType = OpenIdConnectResponseType.Code;
-                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.ResponseType = OpenIdConnectResponseType.Code;
+            options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
-                options.SaveTokens = true;
-                options.GetClaimsFromUserInfoEndpoint = true;
-            });
+            options.UsePkce = true;
+            options.SaveTokens = true;
+            options.GetClaimsFromUserInfoEndpoint = true;
+            options.RequireHttpsMetadata = true;
+        });
     }
 }

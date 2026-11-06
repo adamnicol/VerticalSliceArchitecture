@@ -25,7 +25,9 @@ internal static class EndpointConfiguration
 
     internal static WebApplication MapEndpoints(this WebApplication app)
     {
-        var group = app.MapGroup(Constants.RoutePrefix);
+        var group = app
+            .MapGroup(Constants.RoutePrefix)
+            .RequireAuthorization();
 
         foreach (IEndpoint endpoint in app.Services.GetRequiredService<IEnumerable<IEndpoint>>())
         {
