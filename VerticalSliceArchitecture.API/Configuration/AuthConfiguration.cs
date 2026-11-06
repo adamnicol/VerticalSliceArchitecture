@@ -22,7 +22,6 @@ internal static class AuthConfiguration
         var builder = services.AddAuthentication(options =>
         {
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         });
 
         builder.AddCookie(options =>
