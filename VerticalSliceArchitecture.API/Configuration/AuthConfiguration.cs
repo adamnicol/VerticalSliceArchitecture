@@ -26,6 +26,8 @@ internal static class AuthConfiguration
 
         builder.AddCookie(options =>
         {
+            options.Cookie.HttpOnly = true;
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             options.Events.OnRedirectToLogin = (context) =>
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
@@ -40,11 +42,12 @@ internal static class AuthConfiguration
             options.ClientSecret = settings.ClientSecret;
             options.CallbackPath = settings.CallbackPath ?? "/signin-oidc";
 
+            options.Scope.Add("email");
+
             options.ResponseType = OpenIdConnectResponseType.Code;
             options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
             options.UsePkce = true;
-            options.SaveTokens = true;
             options.GetClaimsFromUserInfoEndpoint = true;
             options.RequireHttpsMetadata = true;
         });
