@@ -13,11 +13,11 @@ internal static class AuthConfiguration
 
         if (settings?.Providers.Length > 0)
         {
-            services.AddProviders(settings.Providers);
+            services.AddExternalProviders(settings.Providers);
         }
     }
 
-    private static void AddProviders(this IServiceCollection services, OidcSettings[] providers)
+    private static void AddExternalProviders(this IServiceCollection services, OidcSettings[] providers)
     {
         var auth = services.AddAuthentication(options =>
         {
@@ -50,7 +50,6 @@ internal static class AuthConfiguration
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
                 options.UsePkce = true;
-                options.SaveTokens = true;
                 options.GetClaimsFromUserInfoEndpoint = true;
                 options.RequireHttpsMetadata = true;
             });

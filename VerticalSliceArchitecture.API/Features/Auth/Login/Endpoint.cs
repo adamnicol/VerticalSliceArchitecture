@@ -7,8 +7,7 @@ internal class Endpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("/auth/login/{provider}", (
-            string provider) =>
+        app.MapGet("/auth/login/{provider}", (string provider) =>
         {
             var properties = new AuthenticationProperties()
             {
