@@ -18,11 +18,16 @@ public sealed class ConnectionStrings
 
 public sealed class AuthenticationSettings
 {
-    public OidcSettings Oidc { get; set; } = new();
+    public bool LocalLoginEnabled { get; set; } = true;
+    public OidcSettings[] Providers { get; set; } = [];
 }
 
 public sealed class OidcSettings
 {
+    [Required(AllowEmptyStrings = false)]
+    public string Name { get; set; } = string.Empty;
+    [Required(AllowEmptyStrings = false)]
+    public string DisplayName { get; set; } = string.Empty;
     [Required(AllowEmptyStrings = false)]
     public string Authority { get; set; } = string.Empty;
     [Required(AllowEmptyStrings = false)]

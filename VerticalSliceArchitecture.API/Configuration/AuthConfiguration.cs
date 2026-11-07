@@ -13,18 +13,18 @@ internal static class AuthConfiguration
 
         if (settings != null)
         {
-            AddOpenIdConnect(services, settings.Oidc);
+            services.AddProviders(settings.Providers);
         }
     }
 
-    internal static void AddOpenIdConnect(IServiceCollection services, OidcSettings settings)
+    internal static void AddProviders(this IServiceCollection services, OidcSettings[] providers)
     {
-        var builder = services.AddAuthentication(options =>
+        var auth = services.AddAuthentication(options =>
         {
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         });
 
-        builder.AddCookie(options =>
+        auth.AddCookie(options =>
         {
             options.Cookie.HttpOnly = true;
             options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
@@ -34,22 +34,25 @@ internal static class AuthConfiguration
                 return Task.CompletedTask;
             };
         });
-        
-        builder.AddOpenIdConnect(options =>
+
+        foreach (var provider in providers)
         {
-            options.Authority = settings.Authority;
-            options.ClientId = settings.ClientId;
-            options.ClientSecret = settings.ClientSecret;
-            options.CallbackPath = settings.CallbackPath ?? "/signin-oidc";
+            auth.AddOpenIdConnect(provider.Name, options =>
+            {
+                options.Authority = provider.Authority;
+                options.ClientId = provider.ClientId;
+                options.ClientSecret = provider.ClientSecret;
+                options.CallbackPath = provider.CallbackPath ?? $"/signin-oidc/{provider.Name.ToLower()}";
 
-            options.Scope.Add("email");
+                options.Scope.Add("email");
 
-            options.ResponseType = OpenIdConnectResponseType.Code;
-            options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.ResponseType = OpenIdConnectResponseType.Code;
+                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
-            options.UsePkce = true;
-            options.GetClaimsFromUserInfoEndpoint = true;
-            options.RequireHttpsMetadata = true;
-        });
+                options.UsePkce = true;
+                options.GetClaimsFromUserInfoEndpoint = true;
+                options.RequireHttpsMetadata = true;
+            });
+        }
     }
 }
