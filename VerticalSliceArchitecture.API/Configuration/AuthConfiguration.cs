@@ -11,13 +11,13 @@ internal static class AuthConfiguration
             .GetRequiredSection(nameof(AppSettings.Authentication))
             .Get<AuthenticationSettings>();
 
-        if (settings != null)
+        if (settings?.Providers.Length > 0)
         {
             services.AddProviders(settings.Providers);
         }
     }
 
-    internal static void AddProviders(this IServiceCollection services, OidcSettings[] providers)
+    private static void AddProviders(this IServiceCollection services, OidcSettings[] providers)
     {
         var auth = services.AddAuthentication(options =>
         {
@@ -37,7 +37,7 @@ internal static class AuthConfiguration
 
         foreach (var provider in providers)
         {
-            auth.AddOpenIdConnect(provider.Name, options =>
+            auth.AddOpenIdConnect(provider.Name.ToLower(), options =>
             {
                 options.Authority = provider.Authority;
                 options.ClientId = provider.ClientId;
@@ -50,6 +50,7 @@ internal static class AuthConfiguration
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
                 options.UsePkce = true;
+                options.SaveTokens = true;
                 options.GetClaimsFromUserInfoEndpoint = true;
                 options.RequireHttpsMetadata = true;
             });
