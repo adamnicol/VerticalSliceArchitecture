@@ -17,7 +17,7 @@ services.AddValidation();
 services.AddHealthCheckConfiguration();
 services.AddSettings();
 services.AddOutputCache();
-services.AddSwagger();
+services.AddSwagger(builder.Configuration);
 
 var app = builder.Build();
 

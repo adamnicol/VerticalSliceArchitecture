@@ -5,12 +5,42 @@ namespace VerticalSliceArchitecture.API.Configuration;
 
 internal static class SwaggerConfiguration
 {
-    internal static IServiceCollection AddSwagger(this IServiceCollection services)
+    internal static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration configuration)
     {
+        var authentication = configuration
+            .GetRequiredSection(nameof(AppSettings.Authentication))
+            .Get<AuthenticationSettings>();
+
         return services.AddSwaggerGen(options =>
         {
             options.CustomSchemaIds(x => x.FullName);
             options.OperationFilter<FeatureTagFilter>();
+
+            foreach (var provider in authentication?.Providers ?? [])
+            {
+                options.AddProvider(provider);
+            }
+        });
+    }
+
+    private static void AddProvider(this SwaggerGenOptions options, OidcSettings provider)
+    {
+        string basePath = provider.Authority.TrimEnd('/');
+        string authPath = provider.AuthorizationPath?.TrimStart('/') ?? "authorize";
+        string tokenPath = provider.TokenPath?.TrimStart('/') ?? "oauth/token";
+
+        options.AddSecurityDefinition(provider.Identifier, new OpenApiSecurityScheme
+        {
+            Type = SecuritySchemeType.OAuth2,
+            Description = $"Authenticate using {provider.Identifier}",
+            Flows = new OpenApiOAuthFlows
+            {
+                AuthorizationCode = new OpenApiOAuthFlow
+                {
+                    AuthorizationUrl = new Uri($"{basePath}/{authPath}"),
+                    TokenUrl = new Uri($"{basePath}/{tokenPath}"),
+                }
+            }
         });
     }
 
