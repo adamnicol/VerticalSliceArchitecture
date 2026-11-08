@@ -13,11 +13,11 @@ internal static class AuthConfiguration
 
         if (settings?.Providers.Length > 0)
         {
-            services.AddExternalProviders(settings.Providers);
+            services.AddOidcProviders(settings.Providers);
         }
     }
 
-    private static void AddExternalProviders(this IServiceCollection services, OidcSettings[] providers)
+    private static void AddOidcProviders(this IServiceCollection services, OidcSettings[] providers)
     {
         var auth = services.AddAuthentication(options =>
         {
@@ -37,12 +37,14 @@ internal static class AuthConfiguration
 
         foreach (var provider in providers)
         {
-            auth.AddOpenIdConnect(provider.Name.ToLower(), options =>
+            string identifier = provider.Identifier.ToLower();
+            
+            auth.AddOpenIdConnect(identifier, options =>
             {
                 options.Authority = provider.Authority;
                 options.ClientId = provider.ClientId;
                 options.ClientSecret = provider.ClientSecret;
-                options.CallbackPath = provider.CallbackPath ?? $"/signin-oidc/{provider.Name.ToLower()}";
+                options.CallbackPath = provider.CallbackPath ?? $"/signin-oidc/{identifier}";
 
                 options.Scope.Add("email");
 

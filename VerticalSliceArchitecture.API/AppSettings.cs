@@ -25,7 +25,7 @@ public sealed class AuthenticationSettings
 public sealed class OidcSettings
 {
     [Required(AllowEmptyStrings = false)]
-    public string Name { get; set; } = string.Empty;
+    public string Identifier { get; set; } = string.Empty;
     [Required(AllowEmptyStrings = false)]
     public string DisplayName { get; set; } = string.Empty;
     [Required(AllowEmptyStrings = false)]
@@ -34,5 +34,5 @@ public sealed class OidcSettings
     public string ClientId { get; set; } = string.Empty;
     [Required(AllowEmptyStrings = false)]
     public string ClientSecret { get; set; } = string.Empty;
-    public string? CallbackPath {  get; set; }
+    public string? CallbackPath { get; set; } = null;
 }
