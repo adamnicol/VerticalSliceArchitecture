@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using VerticalSliceArchitecture.API.Utils;
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
@@ -8,10 +9,12 @@ internal static class AuthConfiguration
     internal static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
         var settings = configuration
-            .GetRequiredSection(nameof(AppSettings.Authentication))
+            .GetSection(nameof(AppSettings.Authentication))
             .Get<AuthenticationSettings>();
 
-        if (settings?.Providers.Length > 0)
+        settings = Guard.AgainstNull(settings, "Authentication not configured.");
+
+        if (settings.Providers.Length > 0)
         {
             services.AddOidcProviders(settings.Providers);
         }
