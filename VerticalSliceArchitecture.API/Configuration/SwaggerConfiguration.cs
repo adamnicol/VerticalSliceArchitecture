@@ -32,7 +32,7 @@ internal static class SwaggerConfiguration
         options.AddSecurityDefinition(provider.Identifier, new OpenApiSecurityScheme
         {
             Type = SecuritySchemeType.OAuth2,
-            Description = $"Authenticate using {provider.Identifier}",
+            Description = provider.DisplayName,
             Flows = new OpenApiOAuthFlows
             {
                 AuthorizationCode = new OpenApiOAuthFlow
