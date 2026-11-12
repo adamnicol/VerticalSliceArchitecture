@@ -2,28 +2,26 @@
 using VerticalSliceArchitecture.Domain.Entities;
 using VerticalSliceArchitecture.Infrastructure.Database.Extensions;
 
-namespace VerticalSliceArchitecture.Infrastructure.Database
+namespace VerticalSliceArchitecture.Infrastructure.Database;
+
+public class DatabaseContext : DbContext
 {
-    public class DatabaseContext : DbContext
+    public DbSet<User> Users { get; set; }
+
+    public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
     {
-        public DbSet<User> Users { get; set; }
 
-        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
-        {
+    }
 
-        }
+    protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+    {
+        builder.AddValueObjectConversions();
+    }
 
-        protected override void ConfigureConventions(ModelConfigurationBuilder builder)
-        {
-            builder.AddValueObjectConversions();
-        }
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-
-            builder.ApplyConfigurationsFromAssembly(
-                typeof(DatabaseContext).Assembly);
-        }
+        builder.ApplyConfigurationsFromAssembly(typeof(DatabaseContext).Assembly);
     }
 }
