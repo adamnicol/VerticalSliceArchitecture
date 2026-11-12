@@ -7,7 +7,7 @@ public class UserContext : IUserContext
 {
     public Guid UserId { get; }
     public string? EmailAddress { get; }
-    public bool IsAdministrator { get; }
+    public bool Administrator { get; }
 
     public UserContext(IHttpContextAccessor context)
     {
@@ -17,7 +17,7 @@ public class UserContext : IUserContext
         {
             UserId = user.GetGuid(CustomClaims.UserId);
             EmailAddress = user.GetClaim(ClaimTypes.Email);
-            IsAdministrator = user.IsInRole(UserRoles.Administrator);
+            Administrator = user.IsInRole(UserRoles.Administrator);
         }
     }
 }

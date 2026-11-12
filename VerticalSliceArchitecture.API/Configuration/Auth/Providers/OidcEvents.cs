@@ -29,12 +29,16 @@ public class OidcEvents(ILoginProvider loginProvider) : OpenIdConnectEvents
 
         var emailAddress = new EmailAddress(email);
         var cancellationToken = context.HttpContext.RequestAborted;
+        var identifier = identity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        User? user = await loginProvider.GetUser(emailAddress, cancellationToken);
-
-        if (user?.Status == EntityStatus.Active)
+        if (!string.IsNullOrWhiteSpace(identifier))
         {
-            identity.AddClaims(ClaimsFactory.CreateClaims(user));
+            User? user = await loginProvider.GetUser(identifier, emailAddress, cancellationToken);
+
+            if (user?.Status == EntityStatus.Active)
+            {
+                identity.AddClaims(ClaimsFactory.CreateClaims(user));
+            }
         }
     }
 }

@@ -4,5 +4,5 @@ public interface IUserContext
 {
     Guid UserId { get; }
     string? EmailAddress { get; }
-    bool IsAdministrator { get; }
+    bool Administrator { get; }
 }

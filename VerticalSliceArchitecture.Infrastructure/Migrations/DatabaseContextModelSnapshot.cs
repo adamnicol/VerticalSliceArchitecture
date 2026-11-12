@@ -16,7 +16,7 @@ partial class DatabaseContextModelSnapshot : ModelSnapshot
     // If you encounter a merge conflict in the line below, it means you need to
     // discard one of the migration branches and recreate its migrations on top of
     // the other branch. See https://aka.ms/efcore-docs-migrations-conflicts for more info.
-    public override string LastMigrationId => "20261112170331_InitialCreate";
+    public override string LastMigrationId => "20261112193745_InitialCreate";
 
     protected override void BuildModel(ModelBuilder modelBuilder)
     {
@@ -33,6 +33,9 @@ partial class DatabaseContextModelSnapshot : ModelSnapshot
                     .ValueGeneratedOnAdd()
                     .HasColumnType("uniqueidentifier");
 
+                b.Property<bool>("Administrator")
+                    .HasColumnType("bit");
+
                 b.Property<DateTime>("CreatedAt")
                     .HasColumnType("datetime2");
 
@@ -41,8 +44,9 @@ partial class DatabaseContextModelSnapshot : ModelSnapshot
                     .HasMaxLength(255)
                     .HasColumnType("nvarchar(255)");
 
-                b.Property<bool>("IsAdministrator")
-                    .HasColumnType("bit");
+                b.Property<string>("ExternalId")
+                    .HasMaxLength(255)
+                    .HasColumnType("nvarchar(255)");
 
                 b.Property<DateTime?>("ModifiedAt")
                     .HasColumnType("datetime2");
@@ -55,6 +59,13 @@ partial class DatabaseContextModelSnapshot : ModelSnapshot
                     .HasColumnType("int");
 
                 b.HasKey("UserId");
+
+                b.HasIndex("EmailAddress")
+                    .IsUnique();
+
+                b.HasIndex("ExternalId")
+                    .IsUnique()
+                    .HasFilter("[ExternalId] IS NOT NULL");
 
                 b.ToTable("Users");
             });

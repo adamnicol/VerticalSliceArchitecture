@@ -12,7 +12,7 @@ public static class ClaimsFactory
             new (CustomClaims.UserId, user.UserId.ToString())
         }; 
 
-        if (user.IsAdministrator)
+        if (user.Administrator)
         {
             claims.Add(new(ClaimTypes.Role, UserRoles.Administrator));
         }

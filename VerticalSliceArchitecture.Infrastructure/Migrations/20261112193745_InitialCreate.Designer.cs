@@ -12,8 +12,8 @@ using VerticalSliceArchitecture.Infrastructure.Database;
 namespace VerticalSliceArchitecture.Infrastructure.Migrations;
 
 [DbContext(typeof(DatabaseContext))]
-[Migration("20261112170331_InitialCreate")]
-partial class _20261112170331_InitialCreate
+[Migration("20261112193745_InitialCreate")]
+partial class _20261112193745_InitialCreate
 {
     /// <inheritdoc />
     protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,9 @@ partial class _20261112170331_InitialCreate
                     .ValueGeneratedOnAdd()
                     .HasColumnType("uniqueidentifier");
 
+                b.Property<bool>("Administrator")
+                    .HasColumnType("bit");
+
                 b.Property<DateTime>("CreatedAt")
                     .HasColumnType("datetime2");
 
@@ -39,8 +42,9 @@ partial class _20261112170331_InitialCreate
                     .HasMaxLength(255)
                     .HasColumnType("nvarchar(255)");
 
-                b.Property<bool>("IsAdministrator")
-                    .HasColumnType("bit");
+                b.Property<string>("ExternalId")
+                    .HasMaxLength(255)
+                    .HasColumnType("nvarchar(255)");
 
                 b.Property<DateTime?>("ModifiedAt")
                     .HasColumnType("datetime2");
@@ -53,6 +57,13 @@ partial class _20261112170331_InitialCreate
                     .HasColumnType("int");
 
                 b.HasKey("UserId");
+
+                b.HasIndex("EmailAddress")
+                    .IsUnique();
+
+                b.HasIndex("ExternalId")
+                    .IsUnique()
+                    .HasFilter("[ExternalId] IS NOT NULL");
 
                 b.ToTable("Users");
             });

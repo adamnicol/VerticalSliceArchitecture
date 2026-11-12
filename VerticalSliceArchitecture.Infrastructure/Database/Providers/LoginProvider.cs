@@ -8,26 +8,25 @@ namespace VerticalSliceArchitecture.Infrastructure.Database.Providers;
 
 public class LoginProvider(DatabaseContext database) : ILoginProvider
 {
-    public async Task<User> GetUser(EmailAddress email, CancellationToken cancellationToken)
+    public async Task<User> GetUser(string externalId, EmailAddress email, CancellationToken ct)
     {
         var user = await database.Users
-            .Where(user => user.EmailAddress == email)
-            .FirstOrDefaultAsync(cancellationToken);
+            .Where(user => user.ExternalId == externalId)
+            .FirstOrDefaultAsync(ct);
 
         if (user == null)
         {
-            string username = email.Value.Substring(0, email.Value.IndexOf('@'));
-
             user = new User()
             {
                 UserId = Guid.NewGuid(),
-                EmailAddress = email, 
+                ExternalId = externalId,
+                EmailAddress = email,
                 Status = EntityStatus.Active,
             };
 
             database.Users.Add(user);
 
-            await database.SaveChangesAsync(cancellationToken);
+            await database.SaveChangesAsync(ct);
         }
 
         return user;

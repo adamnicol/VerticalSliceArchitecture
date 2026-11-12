@@ -5,5 +5,5 @@ namespace VerticalSliceArchitecture.Infrastructure.Database.Providers.Contracts;
 
 public interface ILoginProvider
 {
-    Task<User> GetUser(EmailAddress email, CancellationToken cancellationToken);
+    Task<User> GetUser(string externalId, EmailAddress email, CancellationToken ct);
 }

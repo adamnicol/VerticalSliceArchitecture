@@ -8,7 +8,7 @@ public class Handler(IUserContext user) : IRequestHandler
         {
             UserId = user.UserId,
             EmailAddress = user.EmailAddress,
-            IsAdministrator = user.IsAdministrator,
+            Administrator = user.Administrator,
         };
     }
 }

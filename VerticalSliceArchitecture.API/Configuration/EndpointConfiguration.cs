@@ -26,7 +26,6 @@ internal static class EndpointConfiguration
         }
     }
 
-
     private static void AddRequestHandlers(this IServiceCollection services, Assembly assembly)
     {
         foreach (Type type in assembly.DefinedTypes)

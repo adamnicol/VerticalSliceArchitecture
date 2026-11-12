@@ -8,9 +8,11 @@ namespace VerticalSliceArchitecture.Domain.Entities
         [Key]
         public required Guid UserId { get; set; }
         [MaxLength(255)]
+        public string? ExternalId { get; set; }
+        [MaxLength(255)]
         public required EmailAddress EmailAddress { get; set; }
         [MaxLength(255)]
         public string? PasswordHash { get; set; }
-        public bool IsAdministrator { get; set; }
+        public bool Administrator { get; set; }
     }
 }

@@ -1,21 +1,22 @@
 ﻿using VerticalSliceArchitecture.Domain.Entities;
 
-namespace VerticalSliceArchitecture.API.Features.Users.GetUserList
+namespace VerticalSliceArchitecture.API.Features.Users.GetUserList;
+
+public record Response : PaginatedResponse<UserDto>;
+
+public class UserDto
 {
-    public record Response : PaginatedResponse<UserDto>;
+    public required Guid UserId { get; set; }
+    public required string EmailAddress { get; set; }
+    public bool Administrator { get; set; }
 
-    public class UserDto
+    public static UserDto Create(User user)
     {
-        public required Guid UserId { get; set; }
-        public required string EmailAddress { get; set; }
-
-        public static UserDto Create(User user)
+        return new UserDto()
         {
-            return new UserDto()
-            {
-                UserId = user.UserId,
-                EmailAddress = user.EmailAddress.Value,
-            };
-        }
+            UserId = user.UserId,
+            EmailAddress = user.EmailAddress.Value,
+            Administrator = user.Administrator,
+        };
     }
 }
