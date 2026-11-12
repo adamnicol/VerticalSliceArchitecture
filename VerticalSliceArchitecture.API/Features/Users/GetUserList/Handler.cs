@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using VerticalSliceArchitecture.API.Abstractions;
-using VerticalSliceArchitecture.Infrastructure.Database.Queries;
+﻿using VerticalSliceArchitecture.Infrastructure.Database.Queries;
 
 namespace VerticalSliceArchitecture.API.Features.Users.GetUserList;
 

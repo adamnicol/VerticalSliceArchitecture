@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using VerticalSliceArchitecture.API.Utils;
+using VerticalSliceArchitecture.API.Configuration.Auth;
+using VerticalSliceArchitecture.API.Configuration.Auth.Providers;
+using VerticalSliceArchitecture.API.Utilities;
 
-namespace VerticalSliceArchitecture.API.Configuration;
+namespace VerticalSliceArchitecture.API.Configuration.Auth;
 
 internal static class AuthConfiguration
 {
@@ -53,10 +55,12 @@ internal static class AuthConfiguration
 
                 options.ResponseType = OpenIdConnectResponseType.Code;
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-
                 options.UsePkce = true;
                 options.GetClaimsFromUserInfoEndpoint = true;
                 options.RequireHttpsMetadata = true;
+                options.MapInboundClaims = true;
+
+                options.EventsType = typeof(OidcEvents);
             });
         }
     }

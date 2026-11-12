@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using VerticalSliceArchitecture.API.Abstractions;
 
 namespace VerticalSliceArchitecture.API.Features.Auth.Logout;
 

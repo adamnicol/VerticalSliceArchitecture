@@ -1,11 +1,10 @@
 ﻿using Microsoft.Extensions.Options;
-using VerticalSliceArchitecture.API.Abstractions;
 
 namespace VerticalSliceArchitecture.API.Features.Auth.GetConfig;
 
 public class Handler(IOptions<AuthenticationSettings> settings) : IRequestHandler
 {
-    public ErrorOr<AuthenticationConfig> Handle()
+    public async Task<ErrorOr<AuthenticationConfig>> HandleAsync(CancellationToken cancellationToken)
     {
         if (settings == null)
         {

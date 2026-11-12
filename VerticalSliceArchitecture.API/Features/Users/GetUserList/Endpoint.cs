@@ -1,4 +1,4 @@
-﻿using VerticalSliceArchitecture.API.Abstractions;
+﻿using VerticalSliceArchitecture.API.Configuration.Auth;
 
 namespace VerticalSliceArchitecture.API.Features.Users.GetUserList;
 
@@ -13,6 +13,7 @@ public class Endpoint : IEndpoint
         {
             var response = await handler.HandleAsync(request, cancellationToken);
             return response.ToResult();
-        });
+        })
+            .RequiresRole(UserRoles.Administrator);
     }
 }

@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using VerticalSliceArchitecture.API.Abstractions;
 using VerticalSliceArchitecture.Domain.Entities;
-using VerticalSliceArchitecture.Domain.ValueObjects;
 
 namespace VerticalSliceArchitecture.API.Features.Users.CreateUser;
 
@@ -21,10 +18,9 @@ public class Handler(IHandlerContext context, IPasswordHasher<User> hasher) : Re
         {
             UserId = Guid.NewGuid(),
             EmailAddress = email,
-            Password = string.Empty,
         };
 
-        user.Password = hasher.HashPassword(user, req.Password);
+        user.PasswordHash = hasher.HashPassword(user, req.Password);
 
         Database.Users.Add(user);
         await Database.SaveChangesAsync(ct);

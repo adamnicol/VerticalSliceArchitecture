@@ -1,5 +1,4 @@
-﻿using VerticalSliceArchitecture.API.Abstractions;
-using VerticalSliceArchitecture.Domain.Entities;
+﻿using VerticalSliceArchitecture.Domain.Entities;
 
 namespace VerticalSliceArchitecture.API.Features.Users.GetUserList
 {

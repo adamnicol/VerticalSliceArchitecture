@@ -12,7 +12,7 @@ public class GetUserByIdTests
         {
             UserId = Guid.NewGuid(),
             EmailAddress = new ("user@domain.com"),
-            Password = "password"
+            PasswordHash = "password"
         };
 
         var context = HandlerContextFactory.GetHandlerContext();

@@ -12,19 +12,19 @@ public class GetUserListTests
         {
             UserId = Guid.NewGuid(),
             EmailAddress = new ("user1@domain.com"),
-            Password = "password"
+            PasswordHash = "password"
         },
         new User()
         {
             UserId = Guid.NewGuid(),
             EmailAddress = new ("user2@domain.com"),
-            Password = "password"
+            PasswordHash = "password"
         },
         new User()
         {
             UserId = Guid.NewGuid(),
             EmailAddress = new ("user3@domain.com"),
-            Password = "password"
+            PasswordHash = "password"
         },
     ];
 

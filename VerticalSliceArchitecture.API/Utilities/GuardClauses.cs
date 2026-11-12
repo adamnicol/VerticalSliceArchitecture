@@ -1,4 +1,4 @@
-﻿namespace VerticalSliceArchitecture.API.Utils;
+﻿namespace VerticalSliceArchitecture.API.Utilities;
 
 public static class Guard
 {

@@ -1,6 +1,4 @@
-﻿using VerticalSliceArchitecture.API.Abstractions;
-
-namespace VerticalSliceArchitecture.API.Features.Users.CreateUser;
+﻿namespace VerticalSliceArchitecture.API.Features.Users.CreateUser;
 
 public class Endpoint : IEndpoint
 {

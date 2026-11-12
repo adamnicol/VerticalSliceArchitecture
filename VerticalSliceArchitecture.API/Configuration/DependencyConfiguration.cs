@@ -1,24 +1,31 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Reflection;
-using VerticalSliceArchitecture.API.Abstractions;
+using VerticalSliceArchitecture.API.Configuration.Auth;
+using VerticalSliceArchitecture.API.Configuration.Auth.Providers;
 using VerticalSliceArchitecture.Domain.Entities;
+using VerticalSliceArchitecture.Infrastructure.Database.Providers;
+using VerticalSliceArchitecture.Infrastructure.Database.Providers.Contracts;
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
 internal static class DependencyConfiguration
 {
-    internal static IServiceCollection AddDependencies(this IServiceCollection services)
+    internal static void AddDependencies(this IServiceCollection services)
     {
-        services.AddRequestHandlers(Assembly.GetExecutingAssembly());
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        Assembly assembly = Assembly.GetExecutingAssembly();
 
+        services.AddRequestHandlers(assembly);
+        services.AddValidatorsFromAssembly(assembly);
+
+        services.AddScoped<OidcEvents>();
+        services.AddScoped<IUserContext, UserContext>();
         services.AddScoped<IHandlerContext, HandlerContext>();
-        services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
+        services.AddScoped<ILoginProvider, LoginProvider>();
 
-        return services;
+        services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
     }
 
-    private static IServiceCollection AddRequestHandlers(this IServiceCollection services, Assembly assembly)
+    private static void AddRequestHandlers(this IServiceCollection services, Assembly assembly)
     {
         foreach (Type type in assembly.DefinedTypes)
         {
@@ -27,7 +34,5 @@ internal static class DependencyConfiguration
                 services.Add(ServiceDescriptor.Transient(type, type));
             }
         }
-
-        return services;
     }
 }

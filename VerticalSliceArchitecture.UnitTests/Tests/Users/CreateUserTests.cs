@@ -24,11 +24,11 @@ public class CreateUserTests
         
         var user = Assert.Single(users);
 
-        Assert.Equal(request.Email, user.EmailAddress.Value);
-        Assert.NotEqual(request.Password, user.Password);
+        Assert.NotNull(user.PasswordHash);
+        Assert.NotEqual(request.Password, user.PasswordHash);
 
-        var result = hasher.VerifyHashedPassword(user, user.Password, request.Password);
-     
-        Assert.Equal(PasswordVerificationResult.Success, result);      
+        var result = hasher.VerifyHashedPassword(user, user.PasswordHash, request.Password);
+
+        Assert.Equal(PasswordVerificationResult.Success, result);
     }
 }

@@ -1,8 +1,10 @@
 using Serilog;
 using VerticalSliceArchitecture.API.Configuration;
+using VerticalSliceArchitecture.API.Configuration.Auth;
 using VerticalSliceArchitecture.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var services = builder.Services;
 
 services.AddEndpoints();
@@ -18,6 +20,7 @@ services.AddHealthCheckConfiguration();
 services.AddSettings();
 services.AddOutputCache();
 services.AddSwagger(builder.Configuration);
+services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

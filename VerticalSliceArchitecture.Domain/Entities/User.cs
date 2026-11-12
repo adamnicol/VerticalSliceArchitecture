@@ -10,6 +10,7 @@ namespace VerticalSliceArchitecture.Domain.Entities
         [MaxLength(255)]
         public required EmailAddress EmailAddress { get; set; }
         [MaxLength(255)]
-        public required string Password { get; set; }
+        public string? PasswordHash { get; set; }
+        public bool IsAdministrator { get; set; }
     }
 }

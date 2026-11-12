@@ -1,7 +1,6 @@
-﻿namespace VerticalSliceArchitecture.API.Abstractions
+﻿namespace VerticalSliceArchitecture.API.Abstractions;
+
+public interface IEndpoint
 {
-    public interface IEndpoint
-    {
-        void MapEndpoint(IEndpointRouteBuilder app);
-    }
+    void MapEndpoint(IEndpointRouteBuilder app);
 }
