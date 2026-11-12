@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using VerticalSliceArchitecture.API.Abstractions;
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
@@ -7,10 +6,16 @@ internal static class EndpointConfiguration
 {
     internal static IServiceCollection AddEndpoints(this IServiceCollection services)
     {
-        return services.AddEndpoints(Assembly.GetExecutingAssembly());
+        Assembly assembly = Assembly.GetExecutingAssembly();
+
+        services.AddEndpoints(assembly);
+        services.AddRequestHandlers(assembly);
+        services.AddValidatorsFromAssembly(assembly);
+
+        return services;
     }
 
-    internal static IServiceCollection AddEndpoints(this IServiceCollection services, Assembly assembly)
+    private static void AddEndpoints(this IServiceCollection services, Assembly assembly)
     {
         foreach (Type type in assembly.DefinedTypes)
         {
@@ -19,8 +24,18 @@ internal static class EndpointConfiguration
                 services.Add(ServiceDescriptor.Transient(typeof(IEndpoint), type));
             }
         }
+    }
 
-        return services;
+
+    private static void AddRequestHandlers(this IServiceCollection services, Assembly assembly)
+    {
+        foreach (Type type in assembly.DefinedTypes)
+        {
+            if (type is { IsClass: true, IsAbstract: false } && type.IsAssignableTo(typeof(IRequestHandler)))
+            {
+                services.Add(ServiceDescriptor.Transient(type, type));
+            }
+        }
     }
 
     internal static WebApplication MapEndpoints(this WebApplication app)

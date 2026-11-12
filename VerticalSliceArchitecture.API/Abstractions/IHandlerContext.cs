@@ -1,10 +1,9 @@
 ﻿using VerticalSliceArchitecture.Infrastructure.Database;
 
-namespace VerticalSliceArchitecture.API.Abstractions
+namespace VerticalSliceArchitecture.API.Abstractions;
+
+public interface IHandlerContext
 {
-    public interface IHandlerContext
-    {
-        DatabaseContext Database { get; }
-        Serilog.ILogger Logger { get; }
-    }
+    DatabaseContext Database { get; }
+    Serilog.ILogger Logger { get; }
 }

@@ -4,7 +4,6 @@ using VerticalSliceArchitecture.API.Configuration.Auth;
 using VerticalSliceArchitecture.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
-
 var services = builder.Services;
 
 services.AddEndpoints();

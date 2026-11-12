@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using VerticalSliceArchitecture.Infrastructure.Database;
 using VerticalSliceArchitecture.Infrastructure.Database.Interceptors;
 
