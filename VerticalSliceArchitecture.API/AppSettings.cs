@@ -24,6 +24,8 @@ public sealed class AuthenticationSettings
 
 public sealed class OidcSettings
 {
+    public bool Enabled { get; set; }
+
     [Required(AllowEmptyStrings = false)]
     public string Identifier { get; set; } = string.Empty;
     [Required(AllowEmptyStrings = false)]

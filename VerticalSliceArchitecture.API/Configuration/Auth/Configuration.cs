@@ -6,7 +6,7 @@ using VerticalSliceArchitecture.API.Utilities;
 
 namespace VerticalSliceArchitecture.API.Configuration.Auth;
 
-internal static class AuthConfiguration
+internal static class Configuration
 {
     internal static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
@@ -15,14 +15,11 @@ internal static class AuthConfiguration
             .Get<AuthenticationSettings>();
 
         settings = Guard.AgainstNull(settings, "Authentication not configured.");
-
-        if (settings.Providers.Length > 0)
-        {
-            services.AddOidcProviders(settings.Providers);
-        }
+        
+        services.AddAuthentication(settings);
     }
 
-    private static void AddOidcProviders(this IServiceCollection services, OidcSettings[] providers)
+    private static void AddAuthentication(this IServiceCollection services, AuthenticationSettings settings)
     {
         var auth = services.AddAuthentication(options =>
         {
@@ -40,7 +37,9 @@ internal static class AuthConfiguration
             };
         });
 
-        foreach (var provider in providers)
+        var providers = settings.Providers.Where(x => x.Enabled);
+
+        foreach (OidcSettings provider in providers)
         {
             string identifier = provider.Identifier.ToLower();
             
