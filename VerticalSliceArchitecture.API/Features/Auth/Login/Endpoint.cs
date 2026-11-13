@@ -11,6 +11,7 @@ internal class Endpoint : IEndpoint
             var properties = new AuthenticationProperties()
             {
                 RedirectUri = "/",
+                IsPersistent = true,
             };
 
             return Results.Challenge(properties, [provider]);

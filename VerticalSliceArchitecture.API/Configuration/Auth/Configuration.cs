@@ -30,6 +30,10 @@ internal static class Configuration
         {
             options.Cookie.HttpOnly = true;
             options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            options.Cookie.SameSite = SameSiteMode.Lax;
+            options.ExpireTimeSpan = TimeSpan.FromHours(8);
+            options.SlidingExpiration = true;
+
             options.Events.OnRedirectToLogin = (context) =>
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
