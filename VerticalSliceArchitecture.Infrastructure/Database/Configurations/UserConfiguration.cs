@@ -5,7 +5,7 @@ using VerticalSliceArchitecture.Domain.Enums;
 
 namespace VerticalSliceArchitecture.Infrastructure.Database.Configurations;
 
-public class UserConfiguration : IEntityTypeConfiguration<User>
+internal class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
@@ -14,6 +14,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasIndex(user => user.ExternalId).IsUnique();
         builder.HasIndex(user => user.EmailAddress).IsUnique();
 
-        builder.HasQueryFilter(e => e.Status != EntityStatus.Deleted);
+        builder.HasQueryFilter(user => user.Status != EntityStatus.Deleted);
     }
 }

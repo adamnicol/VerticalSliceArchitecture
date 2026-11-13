@@ -10,7 +10,7 @@ public class DatabaseContext : DbContext
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
     {
-
+        // Don't delete
     }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder builder)
