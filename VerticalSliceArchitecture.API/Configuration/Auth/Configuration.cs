@@ -41,7 +41,7 @@ internal static class Configuration
 
         foreach (OidcSettings provider in providers)
         {
-            string identifier = provider.Identifier.ToLower();
+            string identifier = provider.Identifier.ToLowerInvariant();
             
             auth.AddOpenIdConnect(identifier, options =>
             {

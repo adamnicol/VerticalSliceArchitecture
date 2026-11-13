@@ -13,6 +13,11 @@ internal static class SwaggerConfiguration
 
         return services.AddSwaggerGen(options =>
         {
+            options.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "Vertical Slice",
+            });
+
             options.CustomSchemaIds(x => x.FullName);
             options.OperationFilter<FeatureTagFilter>();
 
@@ -26,8 +31,8 @@ internal static class SwaggerConfiguration
     private static void AddProvider(this SwaggerGenOptions options, OidcSettings provider)
     {
         string basePath = provider.Authority.TrimEnd('/');
-        string authPath = provider.AuthorizationPath?.TrimStart('/') ?? "authorize";
-        string tokenPath = provider.TokenPath?.TrimStart('/') ?? "oauth/token";
+        string? authPath = provider.AuthorizationPath?.TrimStart('/');
+        string? tokenPath = provider.TokenPath?.TrimStart('/');
 
         options.AddSecurityDefinition(provider.Identifier, new OpenApiSecurityScheme
         {
