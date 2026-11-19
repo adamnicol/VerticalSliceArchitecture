@@ -1,4 +1,4 @@
-﻿using VerticalSliceArchitecture.API.Abstractions;
+﻿using VerticalSliceArchitecture.API.Configuration.Caching;
 
 namespace VerticalSliceArchitecture.API.Features.Users.GetUserById;
 
@@ -16,6 +16,6 @@ public class Endpoint : IEndpoint
 
             return response.ToResult();
         })
-            .CacheOutput();
+            .CacheOutput(CachePolicy.Public);
     }
 }

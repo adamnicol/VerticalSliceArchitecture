@@ -1,4 +1,6 @@
-﻿namespace VerticalSliceArchitecture.API.Features.Auth.GetConfig;
+﻿using VerticalSliceArchitecture.API.Configuration.Caching;
+
+namespace VerticalSliceArchitecture.API.Features.Auth.GetConfig;
 
 internal class Endpoint : IEndpoint
 {
@@ -11,6 +13,7 @@ internal class Endpoint : IEndpoint
             var response = await handler.HandleAsync(cancellationToken);
             return response.ToResult();
         })
-            .AllowAnonymous();
+            .AllowAnonymous()
+            .CacheOutput(CachePolicy.Public);
     }
 }
