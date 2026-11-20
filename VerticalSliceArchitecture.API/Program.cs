@@ -40,6 +40,7 @@ app.UseSerilogRequestLogging();
 
 app.UseMiddleware<HeadersMiddleware>();
 app.UseMiddleware<MaintenanceMiddleware>();
+app.UseMiddleware<CsrfMiddleware>();
 
 app.MapHealthChecks();
 app.UseAuthentication();
