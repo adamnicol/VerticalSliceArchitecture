@@ -1,14 +1,16 @@
 ﻿using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using VerticalSliceArchitecture.API.Configuration.Auth;
+using VerticalSliceArchitecture.API.Configuration.Swagger.Filters;
 
-namespace VerticalSliceArchitecture.API.Configuration;
+namespace VerticalSliceArchitecture.API.Configuration.Swagger;
 
 internal static class SwaggerConfiguration
 {
     internal static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration configuration)
     {
         var authentication = configuration
-            .GetRequiredSection(nameof(AppSettings.Authentication))
+            .GetSection(nameof(AppSettings.Authentication))
             .Get<AuthenticationSettings>();
 
         return services.AddSwaggerGen(options =>
@@ -23,17 +25,21 @@ internal static class SwaggerConfiguration
 
             foreach (var provider in authentication?.Providers ?? [])
             {
-                options.AddProvider(provider);
+                if (provider.Enabled)
+                {
+                    options.AddOidcProvider(provider);
+                }
             }
         });
     }
 
-    private static void AddProvider(this SwaggerGenOptions options, OidcSettings provider)
+    private static void AddOidcProvider(this SwaggerGenOptions options, OidcSettings provider)
     {
         string basePath = provider.Authority.TrimEnd('/');
         string? authPath = provider.AuthorizationPath?.TrimStart('/');
         string? tokenPath = provider.TokenPath?.TrimStart('/');
 
+        options.OperationFilter<SecurityRequirementFilter>(provider.Identifier);
         options.AddSecurityDefinition(provider.Identifier, new OpenApiSecurityScheme
         {
             Type = SecuritySchemeType.OAuth2,
@@ -47,24 +53,5 @@ internal static class SwaggerConfiguration
                 }
             }
         });
-    }
-
-    private class FeatureTagFilter : IOperationFilter
-    {
-        public void Apply(OpenApiOperation operation, OperationFilterContext context)
-        {
-            var namespaceName = context.MethodInfo?.DeclaringType?.Namespace;
-            if (!string.IsNullOrWhiteSpace(namespaceName))
-            {
-                var segments = namespaceName.Split('.');
-                if (segments.Length > 1)
-                {
-                    var tag = segments[segments.Length - 2];
-
-                    operation.Tags?.Clear();
-                    operation.Tags?.Add(new OpenApiTagReference(tag));
-                }
-            }
-        }
     }
 }

@@ -1,18 +1,24 @@
 ﻿using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.Net.Http.Headers;
 
 namespace VerticalSliceArchitecture.API.Configuration.Caching.Policies;
 
-public sealed class PublicCachePolicy(TimeSpan timeSpan) : IOutputCachePolicy
+internal sealed class PublicCachePolicy(TimeSpan cacheTime) : IOutputCachePolicy
 {
     public ValueTask CacheRequestAsync(OutputCacheContext context, CancellationToken cancellation)
     {
         var request = context.HttpContext.Request;
 
+        if (!HttpMethods.IsGet(request.Method))
+        {
+            return ValueTask.CompletedTask;
+        }
+
         context.EnableOutputCaching = true;
         context.AllowCacheLookup = true;
         context.AllowCacheStorage = true;
         context.AllowLocking = true;
-        context.ResponseExpirationTimeSpan = timeSpan;
+        context.ResponseExpirationTimeSpan = cacheTime;
 
         context.CacheVaryByRules.QueryKeys = "*";
 
@@ -27,8 +33,9 @@ public sealed class PublicCachePolicy(TimeSpan timeSpan) : IOutputCachePolicy
     public ValueTask ServeResponseAsync(OutputCacheContext context, CancellationToken cancellation)
     {
         var response = context.HttpContext.Response;
-        
-        if (response.StatusCode != StatusCodes.Status200OK)
+
+        if (response.StatusCode != StatusCodes.Status200OK ||
+            response.Headers.ContainsKey(HeaderNames.SetCookie))
         {
             context.AllowCacheStorage = false;
         }

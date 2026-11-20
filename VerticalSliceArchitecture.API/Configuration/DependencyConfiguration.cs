@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using VerticalSliceArchitecture.API.Configuration.Auth;
 using VerticalSliceArchitecture.API.Configuration.Auth.Providers;
 using VerticalSliceArchitecture.Domain.Entities;
 using VerticalSliceArchitecture.Infrastructure.Database.Providers;

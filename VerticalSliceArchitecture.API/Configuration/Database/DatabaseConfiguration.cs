@@ -2,7 +2,7 @@
 using VerticalSliceArchitecture.Infrastructure.Database;
 using VerticalSliceArchitecture.Infrastructure.Database.Interceptors;
 
-namespace VerticalSliceArchitecture.API.Configuration;
+namespace VerticalSliceArchitecture.API.Configuration.Database;
 
 internal static class DatabaseConfiguration
 {

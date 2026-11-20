@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using VerticalSliceArchitecture.API.Configuration;
 
 namespace VerticalSliceArchitecture.API.Features.Auth.Logout;
 
@@ -6,14 +7,12 @@ internal class Endpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("/auth/logout", () =>
+        app.MapPost("/auth/logout", () =>
         {
-            var properties = new AuthenticationProperties()
+            return Results.SignOut(new AuthenticationProperties()
             {
-                RedirectUri = "/",
-            };
-
-            return Results.SignOut(properties);
+                RedirectUri = Constants.LogoutRedirectUrl,
+            });
         });
     }
 }

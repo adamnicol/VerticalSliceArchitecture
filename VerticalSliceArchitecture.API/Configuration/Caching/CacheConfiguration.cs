@@ -2,9 +2,9 @@
 
 namespace VerticalSliceArchitecture.API.Configuration.Caching;
 
-public static class CacheConfiguration
+internal static class CacheConfiguration
 {
-    public static IServiceCollection AddCachePolicies(this IServiceCollection services)
+    internal static IServiceCollection AddCachePolicies(this IServiceCollection services)
     {
         return services.AddOutputCache(options =>
         {
@@ -13,6 +13,11 @@ public static class CacheConfiguration
 
             options.AddPolicy(CachePolicy.PublicShortLived, new PublicCachePolicy(TimeSpan.FromSeconds(30)));
             options.AddPolicy(CachePolicy.PerUserShortLived, new PerUserCachePolicy(TimeSpan.FromSeconds(30)));
+
+            options.AddPolicy(CachePolicy.PublicLongLived, new PublicCachePolicy(TimeSpan.FromHours(1)));
+            options.AddPolicy(CachePolicy.PerUserLongLived, new PerUserCachePolicy(TimeSpan.FromHours(1)));
+
+            options.AddPolicy(CachePolicy.NoCache, builder => builder.NoCache());
         });
     }
 }

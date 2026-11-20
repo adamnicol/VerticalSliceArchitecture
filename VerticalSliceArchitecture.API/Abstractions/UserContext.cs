@@ -1,7 +1,8 @@
 ﻿using System.Security.Claims;
+using VerticalSliceArchitecture.API.Configuration.Auth;
 using VerticalSliceArchitecture.API.Configuration.Auth.Claims;
 
-namespace VerticalSliceArchitecture.API.Configuration.Auth;
+namespace VerticalSliceArchitecture.API.Abstractions;
 
 public class UserContext : IUserContext
 {

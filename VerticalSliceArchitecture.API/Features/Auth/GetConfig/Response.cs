@@ -3,6 +3,7 @@
 public class AuthenticationConfig
 {
     public bool LocalLoginEnabled { get; set; }
+    public required string LocalLoginPath { get; set; }
     public IEnumerable<ExternalProvider> Providers { get; set; } = [];
 }
 

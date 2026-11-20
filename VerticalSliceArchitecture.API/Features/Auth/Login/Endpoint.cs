@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using VerticalSliceArchitecture.API.Configuration;
 
 namespace VerticalSliceArchitecture.API.Features.Auth.Login;
 
@@ -10,8 +11,8 @@ internal class Endpoint : IEndpoint
         {
             var properties = new AuthenticationProperties()
             {
-                RedirectUri = "/",
                 IsPersistent = true,
+                RedirectUri = Constants.LoginRedirectUrl,
             };
 
             return Results.Challenge(properties, [provider]);

@@ -7,10 +7,9 @@ public static class ClaimsFactory
 {
     public static IEnumerable<Claim> CreateClaims(User user)
     {
-        var claims = new List<Claim>
-        {
-            new (CustomClaims.UserId, user.UserId.ToString())
-        }; 
+        var claims = new List<Claim>(); 
+
+        claims.Add(new(CustomClaims.UserId, user.UserId.ToString()));
 
         if (user.Administrator)
         {

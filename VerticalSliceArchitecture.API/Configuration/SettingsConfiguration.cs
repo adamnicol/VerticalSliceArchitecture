@@ -1,4 +1,7 @@
-﻿namespace VerticalSliceArchitecture.API.Configuration;
+﻿using VerticalSliceArchitecture.API.Configuration.Auth;
+using VerticalSliceArchitecture.API.Configuration.Database;
+
+namespace VerticalSliceArchitecture.API.Configuration;
 
 internal static class SettingsConfiguration
 {
