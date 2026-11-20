@@ -1,18 +1,17 @@
 ﻿using VerticalSliceArchitecture.Domain.Abstractions;
 using VerticalSliceArchitecture.Domain.ValueObjects;
 
-namespace VerticalSliceArchitecture.Domain.Entities
+namespace VerticalSliceArchitecture.Domain.Entities;
+
+public class User : AuditableEntity
 {
-    public class User : AuditableEntity, ISoftDelete
-    {
-        [Key]
-        public required Guid UserId { get; set; }
-        [MaxLength(255)]
-        public string? ExternalId { get; set; }
-        [MaxLength(255)]
-        public required EmailAddress EmailAddress { get; set; }
-        [MaxLength(255)]
-        public string? PasswordHash { get; set; }
-        public bool Administrator { get; set; }
-    }
+    [Key]
+    public required Guid UserId { get; set; }
+    [MaxLength(255)]
+    public string? ExternalId { get; set; }
+    [MaxLength(255)]
+    public required EmailAddress EmailAddress { get; set; }
+    [MaxLength(255)]
+    public string? PasswordHash { get; set; }
+    public bool Administrator { get; set; }
 }

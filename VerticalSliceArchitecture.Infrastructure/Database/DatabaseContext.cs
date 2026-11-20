@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VerticalSliceArchitecture.Domain.Entities;
-using VerticalSliceArchitecture.Infrastructure.Database.Extensions;
 
 namespace VerticalSliceArchitecture.Infrastructure.Database;
 
@@ -11,11 +10,6 @@ public class DatabaseContext : DbContext
     public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
     {
         // Don't delete
-    }
-
-    protected override void ConfigureConventions(ModelConfigurationBuilder builder)
-    {
-        builder.AddValueObjectConversions();
     }
 
     protected override void OnModelCreating(ModelBuilder builder)

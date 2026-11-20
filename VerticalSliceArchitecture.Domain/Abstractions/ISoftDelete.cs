@@ -1,9 +1,8 @@
 ﻿using VerticalSliceArchitecture.Domain.Enums;
 
-namespace VerticalSliceArchitecture.Domain.Abstractions
+namespace VerticalSliceArchitecture.Domain.Abstractions;
+
+public interface ISoftDelete
 {
-    public interface ISoftDelete
-    {
-        public EntityStatus Status { get; set; }
-    }
+    public EntityStatus Status { get; set; }
 }

@@ -23,6 +23,8 @@ internal static class DatabaseConfiguration
                     maxRetryCount: 2,
                     maxRetryDelay: TimeSpan.FromSeconds(10),
                     errorNumbersToAdd: null);
+
+                settings.MigrationsAssembly(typeof(DatabaseContext).Assembly);
             });
 
             options.AddInterceptors(new SoftDeleteInterceptor());

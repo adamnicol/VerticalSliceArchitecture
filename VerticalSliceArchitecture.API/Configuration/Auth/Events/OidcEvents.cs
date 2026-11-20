@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using System.Security.Authentication;
 using System.Security.Claims;
 using VerticalSliceArchitecture.API.Configuration.Auth.Claims;
@@ -10,7 +11,7 @@ namespace VerticalSliceArchitecture.API.Configuration.Auth.Providers;
 
 public class OidcEvents(ILoginProvider loginProvider) : OpenIdConnectEvents
 {
-    public override async Task TokenValidated(TokenValidatedContext context)
+    public override async Task TicketReceived(TicketReceivedContext context)
     {
         var identity = context.Principal?.Identity as ClaimsIdentity;
         if (identity == null)

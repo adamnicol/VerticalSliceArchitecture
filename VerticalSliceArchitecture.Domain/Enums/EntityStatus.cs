@@ -1,9 +1,8 @@
-﻿namespace VerticalSliceArchitecture.Domain.Enums
+﻿namespace VerticalSliceArchitecture.Domain.Enums;
+
+public enum EntityStatus
 {
-    public enum EntityStatus
-    {
-        Inactive = 0,
-        Active = 1,
-        Deleted = 2
-    }
+    Inactive = 0,
+    Active = 1,
+    Deleted = 2
 }
