@@ -9,7 +9,7 @@ using VerticalSliceArchitecture.Infrastructure.Database.Providers.Contracts;
 
 namespace VerticalSliceArchitecture.API.Configuration.Auth.Providers;
 
-public class OidcEvents(ILoginProvider loginProvider) : OpenIdConnectEvents
+public class OidcEvents(ILoginProvider loginProvider, IClaimsFactory factory) : OpenIdConnectEvents
 {
     public override async Task TicketReceived(TicketReceivedContext context)
     {
@@ -35,7 +35,7 @@ public class OidcEvents(ILoginProvider loginProvider) : OpenIdConnectEvents
 
             if (user?.Status == EntityStatus.Active)
             {
-                identity.AddClaims(ClaimsFactory.CreateClaims(user));
+                identity.AddClaims(factory.CreateClaims(user));
             }
         }
     }

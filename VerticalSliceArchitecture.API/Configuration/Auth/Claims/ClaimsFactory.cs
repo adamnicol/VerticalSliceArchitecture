@@ -3,9 +3,9 @@ using VerticalSliceArchitecture.Domain.Entities;
 
 namespace VerticalSliceArchitecture.API.Configuration.Auth.Claims;
 
-public static class ClaimsFactory
+internal class ClaimsFactory : IClaimsFactory
 {
-    public static IEnumerable<Claim> CreateClaims(User user)
+    public IEnumerable<Claim> CreateClaims(User user)
     {
         var claims = new List<Claim>(); 
 

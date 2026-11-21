@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using VerticalSliceArchitecture.API.Configuration.Auth.Claims;
 using VerticalSliceArchitecture.API.Configuration.Auth.Providers;
 using VerticalSliceArchitecture.Domain.Entities;
 using VerticalSliceArchitecture.Infrastructure.Database.Providers;
@@ -15,6 +16,7 @@ internal static class DependencyConfiguration
         services.AddScoped<IUserContext, UserContext>();
         services.AddScoped<IHandlerContext, HandlerContext>();
         services.AddScoped<ILoginProvider, LoginProvider>();
+        services.AddScoped<IClaimsFactory, ClaimsFactory>();
 
         services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
 
