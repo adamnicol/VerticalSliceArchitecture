@@ -1,6 +1,6 @@
 ﻿namespace VerticalSliceArchitecture.Domain.ValueObjects;
 
-public class EmailAddress
+public sealed record EmailAddress
 {
     public string Value { get; }
 
