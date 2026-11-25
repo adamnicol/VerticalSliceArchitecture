@@ -5,7 +5,6 @@ using VerticalSliceArchitecture.API.Configuration.Caching;
 using VerticalSliceArchitecture.API.Configuration.Database;
 using VerticalSliceArchitecture.API.Configuration.RateLimiting;
 using VerticalSliceArchitecture.API.Configuration.Swagger;
-using VerticalSliceArchitecture.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -37,11 +36,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStatusCodePages();
 app.UseSerilogRequestLogging();
-
-app.UseMiddleware<HeadersMiddleware>();
-app.UseMiddleware<MaintenanceMiddleware>();
-app.UseMiddleware<CsrfMiddleware>();
-
+app.UseSecurityHeaders();
+app.UseMaintenanceMode();
+app.UseCsrfProtection();
 app.MapHealthChecks();
 app.UseAuthentication();
 app.UseAuthorization();
