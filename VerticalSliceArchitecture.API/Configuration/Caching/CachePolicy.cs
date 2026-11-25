@@ -13,7 +13,7 @@ internal static class CachePolicy
     public const string Shared = nameof(Shared);
 
     /// <summary>
-    /// Each user will see a different cached response. Medium cache length.
+    /// Each user will receive a different cached response. Medium cache length.
     /// </summary>
     public const string PerUser = nameof(PerUser);
 
@@ -23,7 +23,7 @@ internal static class CachePolicy
     public const string SharedShortLived = nameof(SharedShortLived);
 
     /// <summary>
-    /// Each user will see a different cached response. Short cache length.
+    /// Each user will receive a different cached response. Short cache length.
     /// </summary>
     public const string PerUserShortLived = nameof(PerUserShortLived);
 
@@ -33,7 +33,7 @@ internal static class CachePolicy
     public const string SharedLongLived = nameof(SharedLongLived);
 
     /// <summary>
-    /// Each user will see a different cached response. Long cache length.
+    /// Each user will receive a different cached response. Long cache length.
     /// </summary>
     public const string PerUserLongLived = nameof(PerUserLongLived);
 }
