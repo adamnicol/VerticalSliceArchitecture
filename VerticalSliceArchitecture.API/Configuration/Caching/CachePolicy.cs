@@ -2,14 +2,38 @@
 
 internal static class CachePolicy
 {
-    public const string Public = nameof(Public);
+    /// <summary>
+    /// Disables caching. The response will not be cached. 
+    /// </summary>
+    public const string NoCache = nameof(NoCache);
+
+    /// <summary>
+    /// All users will receive the same cached response. Medium cache length.
+    /// </summary>
+    public const string Shared = nameof(Shared);
+
+    /// <summary>
+    /// Each user will see a different cached response. Medium cache length.
+    /// </summary>
     public const string PerUser = nameof(PerUser);
 
-    public const string PublicShortLived = nameof(PublicShortLived);
+    /// <summary>
+    /// All users will receive the same cached response. Short cache length.
+    /// </summary>
+    public const string SharedShortLived = nameof(SharedShortLived);
+
+    /// <summary>
+    /// Each user will see a different cached response. Short cache length.
+    /// </summary>
     public const string PerUserShortLived = nameof(PerUserShortLived);
 
-    public const string PublicLongLived = nameof(PublicLongLived);
-    public const string PerUserLongLived = nameof(PerUserLongLived);
+    /// <summary>
+    /// All users will receive the same cached response. Long cache length.
+    /// </summary>
+    public const string SharedLongLived = nameof(SharedLongLived);
 
-    public const string NoCache = nameof(NoCache);
+    /// <summary>
+    /// Each user will see a different cached response. Long cache length.
+    /// </summary>
+    public const string PerUserLongLived = nameof(PerUserLongLived);
 }

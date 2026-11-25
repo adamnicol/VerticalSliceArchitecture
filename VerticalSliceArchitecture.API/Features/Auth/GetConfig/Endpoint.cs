@@ -14,6 +14,6 @@ internal class Endpoint : IEndpoint
             return response.ToResult();
         })
             .AllowAnonymous()
-            .CacheOutput(CachePolicy.PublicLongLived);
+            .CacheOutput(CachePolicy.SharedLongLived);
     }
 }

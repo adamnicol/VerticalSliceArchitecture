@@ -8,13 +8,13 @@ internal static class CacheConfiguration
     {
         return services.AddOutputCache(options =>
         {
-            options.AddPolicy(CachePolicy.Public, new PublicCachePolicy(TimeSpan.FromMinutes(5)));
+            options.AddPolicy(CachePolicy.Shared, new SharedCachePolicy(TimeSpan.FromMinutes(5)));
             options.AddPolicy(CachePolicy.PerUser, new PerUserCachePolicy(TimeSpan.FromMinutes(5)));
 
-            options.AddPolicy(CachePolicy.PublicShortLived, new PublicCachePolicy(TimeSpan.FromSeconds(30)));
+            options.AddPolicy(CachePolicy.SharedShortLived, new SharedCachePolicy(TimeSpan.FromSeconds(30)));
             options.AddPolicy(CachePolicy.PerUserShortLived, new PerUserCachePolicy(TimeSpan.FromSeconds(30)));
 
-            options.AddPolicy(CachePolicy.PublicLongLived, new PublicCachePolicy(TimeSpan.FromHours(1)));
+            options.AddPolicy(CachePolicy.SharedLongLived, new SharedCachePolicy(TimeSpan.FromHours(1)));
             options.AddPolicy(CachePolicy.PerUserLongLived, new PerUserCachePolicy(TimeSpan.FromHours(1)));
 
             options.AddPolicy(CachePolicy.NoCache, builder => builder.NoCache());

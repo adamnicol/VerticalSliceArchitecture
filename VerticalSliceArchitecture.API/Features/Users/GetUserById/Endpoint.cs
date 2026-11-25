@@ -16,6 +16,6 @@ public class Endpoint : IEndpoint
 
             return response.ToResult();
         })
-            .CacheOutput(CachePolicy.Public);
+            .CacheOutput(CachePolicy.Shared);
     }
 }

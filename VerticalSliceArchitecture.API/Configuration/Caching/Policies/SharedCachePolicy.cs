@@ -3,7 +3,7 @@ using Microsoft.Net.Http.Headers;
 
 namespace VerticalSliceArchitecture.API.Configuration.Caching.Policies;
 
-internal sealed class PublicCachePolicy(TimeSpan cacheTime) : IOutputCachePolicy
+internal sealed class SharedCachePolicy(TimeSpan cacheTime) : IOutputCachePolicy
 {
     public ValueTask CacheRequestAsync(OutputCacheContext context, CancellationToken cancellation)
     {
