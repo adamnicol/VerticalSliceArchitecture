@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using VerticalSliceArchitecture.API.Configuration.Auth;
 
 namespace VerticalSliceArchitecture.API.Configuration;
 
@@ -39,13 +40,21 @@ internal static class EndpointConfiguration
 
     internal static WebApplication MapEndpoints(this WebApplication app)
     {
-        var group = app
+        var root = app
             .MapGroup(Constants.RoutePrefix)
             .RequireAuthorization();
 
+        var admin = root.MapGroup("/admin")
+            .RequiresRole(UserRoles.Administrator);
+
         foreach (IEndpoint endpoint in app.Services.GetRequiredService<IEnumerable<IEndpoint>>())
         {
-            endpoint.MapEndpoint(group);
+            string @namespace = endpoint.GetType().Namespace ?? string.Empty;
+
+            if (@namespace.Contains(nameof(Features.Admin)))
+                endpoint.MapEndpoint(admin);
+            else
+                endpoint.MapEndpoint(root);
         }
 
         return app;
